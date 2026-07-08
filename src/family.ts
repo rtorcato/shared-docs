@@ -7,10 +7,11 @@ export type FamilyMember = {
 	/** npm package name, e.g. "@rtorcato/api-common" */
 	name: string
 	tagline: string
+	/** Prefer the published docs site; fall back to the GitHub repo when there isn't one yet. */
 	href: string
-	/** link-destination badge: "Docs" | "GitHub" */
-	dest: string
-	/** brand hue, brightened for dark cards — tints the landing card title */
+	/** Short label rendered in the card's top-right indicating where the link goes. */
+	dest: 'Docs' | 'GitHub'
+	/** Each project's brand hue (brightened for the dark card), used to tint the card title. */
 	accent: string
 }
 

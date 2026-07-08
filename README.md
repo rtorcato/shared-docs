@@ -8,9 +8,15 @@ the family once here; each site picks it up on its next build.
 
 ## Install
 
+Not published to npm — consumed directly from GitHub as a git dependency. pnpm
+builds it on install via the package's `prepare` script.
+
 ```sh
-pnpm add -D @rtorcato/shared-docs
+pnpm add -D "@rtorcato/shared-docs@github:rtorcato/shared-docs"
 ```
+
+Pin to a tag or commit for reproducible builds, e.g.
+`github:rtorcato/shared-docs#v0.1.0`. Update with `pnpm update @rtorcato/shared-docs`.
 
 ## Usage
 
