@@ -1,0 +1,86 @@
+/* Siblings.module.css — the "Sibling projects" grid.
+   Self-contained: brings its own section/heading/card styles so a consuming
+   site only renders <Siblings self="…" />. Themed via Infima (--ifm-*) vars so
+   it adapts to each site's palette; card titles are tinted inline from the
+   family's per-project accent. */
+
+.section {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 54px 24px 8px;
+}
+.sectionHead {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-bottom: 24px;
+}
+.h2 {
+	margin: 0 0 8px;
+	font-size: 30px;
+	letter-spacing: -0.02em;
+	font-weight: 800;
+	color: var(--ifm-heading-color);
+}
+.sub {
+	margin: 0;
+	font-size: 16px;
+	color: var(--ifm-color-emphasis-700);
+}
+
+.siblingGrid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+.card {
+	display: block;
+	padding: 22px;
+	background: var(--ifm-card-background-color);
+	border: 1px solid var(--ifm-color-emphasis-200);
+	border-radius: 16px;
+	/* Docusaurus <Link> ships an underline we need to suppress on cards. */
+	text-decoration: none !important;
+	color: inherit;
+	transition:
+		transform 0.15s,
+		border-color 0.15s;
+}
+.card:hover {
+	border-color: var(--ifm-color-primary);
+	transform: translateY(-3px);
+}
+.cardHead {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-bottom: 8px;
+}
+.cardName {
+	font-weight: 700;
+	font-size: 16px;
+	color: var(--ifm-heading-color);
+}
+.cardCount {
+	font-size: 12px;
+	color: var(--ifm-color-emphasis-500);
+}
+.cardDesc {
+	margin: 0;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--ifm-color-emphasis-700);
+}
+
+@media (max-width: 996px) {
+	.siblingGrid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 560px) {
+	.siblingGrid {
+		grid-template-columns: 1fr;
+	}
+}

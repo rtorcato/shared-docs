@@ -1,0 +1,71 @@
+/* UseWithAI.module.css — two-lane "Use with AI" section.
+   Self-contained section/heading styles; themed via Infima (--ifm-*) vars. */
+
+.section {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 54px 24px 8px;
+}
+.sectionHead {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 20px;
+	flex-wrap: wrap;
+	margin-bottom: 24px;
+}
+.h2 {
+	margin: 0 0 8px;
+	font-size: 30px;
+	letter-spacing: -0.02em;
+	font-weight: 800;
+	color: var(--ifm-heading-color);
+}
+.sub {
+	margin: 0;
+	font-size: 16px;
+	color: var(--ifm-color-emphasis-700);
+}
+
+.aiGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 28px;
+	align-items: start;
+}
+.aiLane {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	min-width: 0;
+}
+.aiLaneHead {
+	font-weight: 700;
+	font-size: 15px;
+	color: var(--ifm-heading-color);
+}
+.aiLaneSub {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.5;
+	color: var(--ifm-color-emphasis-700);
+}
+.aiRules > div {
+	margin: 0;
+}
+.aiLaneLink {
+	align-self: flex-start;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ifm-color-primary);
+}
+.aiLaneLink:hover {
+	color: var(--ifm-color-primary);
+}
+
+@media (max-width: 996px) {
+	.aiGrid {
+		grid-template-columns: 1fr;
+		gap: 32px;
+	}
+}

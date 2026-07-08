@@ -1,0 +1,62 @@
+/* CommandBlock.module.css — stacked copyable command rows.
+   Accent via --ifm-color-primary; dark install-window palette otherwise. */
+
+.wrap {
+	width: 100%;
+	max-width: 560px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 14px;
+	overflow: hidden;
+	background: #0c111b;
+	text-align: left;
+}
+
+.row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 15px 14px 15px 16px;
+}
+.row + .row {
+	border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cmd {
+	flex: 1;
+	min-width: 0;
+	overflow-x: auto;
+	white-space: nowrap;
+	font-family: var(--ifm-font-family-monospace, monospace);
+	font-size: 14px;
+	color: #dfe5ee;
+	background: transparent;
+	border: none;
+	padding: 0;
+}
+.cmd::-webkit-scrollbar {
+	display: none;
+}
+
+.copy {
+	display: grid;
+	place-items: center;
+	flex: none;
+	width: 34px;
+	height: 34px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	background: #111824;
+	border-radius: 9px;
+	color: #94a1b4;
+	cursor: pointer;
+	transition:
+		border-color 0.15s,
+		color 0.15s;
+}
+.copy:hover {
+	border-color: color-mix(in srgb, var(--ifm-color-primary) 40%, transparent);
+	color: var(--ifm-color-primary);
+}
+.copy[data-copied="true"] {
+	color: #28c840;
+	border-color: rgba(40, 200, 64, 0.4);
+}
