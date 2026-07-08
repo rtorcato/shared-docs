@@ -1,3 +1,7 @@
 node_modules
-dist
 *.tsbuildinfo
+
+# dist/ is committed on purpose — git-dep consumers install prebuilt output.
+# Overrides the user's global ~/.gitignore_global `dist/` rule.
+!dist/
+
