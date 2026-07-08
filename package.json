@@ -1,0 +1,42 @@
+{
+	"name": "@rtorcato/shared-docs",
+	"version": "0.1.0",
+	"description": "Shared data and Docusaurus helpers for the @rtorcato docs sites — the sibling-family list, nav/footer builders.",
+	"type": "module",
+	"keywords": ["docusaurus", "docs", "rtorcato"],
+	"author": "Richard Torcato",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rtorcato/shared-docs.git"
+	},
+	"homepage": "https://github.com/rtorcato/shared-docs#readme",
+	"bugs": {
+		"url": "https://github.com/rtorcato/shared-docs/issues"
+	},
+	"sideEffects": false,
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./package.json": "./package.json"
+	},
+	"files": ["dist"],
+	"scripts": {
+		"build": "tsc -p tsconfig.json",
+		"typecheck": "tsc --noEmit",
+		"prepublishOnly": "pnpm build"
+	},
+	"devDependencies": {
+		"typescript": "^5.9.3"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=22"
+	}
+}
