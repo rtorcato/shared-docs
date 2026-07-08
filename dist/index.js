@@ -12,3 +12,7 @@ export const siblings = (selfName) => FAMILY.filter((m) => m.name !== selfName);
  * Spread into a Docusaurus navbar dropdown or footer column.
  */
 export const projectFamilyItems = () => FAMILY.map((m) => ({ label: label(m), href: m.href }));
+/** The @rtorcato GitHub profile — nav "All on GitHub →" + footer links. */
+export const GITHUB_PROFILE = 'https://github.com/rtorcato';
+/** Standard docs-site footer copyright line, stamped with the current year. */
+export const copyright = () => `Copyright © ${new Date().getFullYear()} Richard Torcato. Built with Docusaurus.`;

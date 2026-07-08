@@ -18,3 +18,7 @@ export declare const siblings: (selfName: string) => FamilyMember[];
  * Spread into a Docusaurus navbar dropdown or footer column.
  */
 export declare const projectFamilyItems: () => FamilyLink[];
+/** The @rtorcato GitHub profile — nav "All on GitHub →" + footer links. */
+export declare const GITHUB_PROFILE = "https://github.com/rtorcato";
+/** Standard docs-site footer copyright line, stamped with the current year. */
+export declare const copyright: () => string;

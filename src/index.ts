@@ -21,3 +21,10 @@ export const siblings = (selfName: string): FamilyMember[] =>
  */
 export const projectFamilyItems = (): FamilyLink[] =>
 	FAMILY.map((m) => ({ label: label(m), href: m.href }))
+
+/** The @rtorcato GitHub profile — nav "All on GitHub →" + footer links. */
+export const GITHUB_PROFILE = 'https://github.com/rtorcato'
+
+/** Standard docs-site footer copyright line, stamped with the current year. */
+export const copyright = (): string =>
+	`Copyright © ${new Date().getFullYear()} Richard Torcato. Built with Docusaurus.`
