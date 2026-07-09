@@ -3,6 +3,7 @@
 	"version": "0.1.0",
 	"description": "Shared data and Docusaurus helpers for the @rtorcato docs sites — the sibling-family list, nav/footer builders.",
 	"type": "module",
+	"packageManager": "pnpm@11.9.0",
 	"keywords": ["docusaurus", "docs", "rtorcato"],
 	"author": "Richard Torcato",
 	"license": "MIT",
