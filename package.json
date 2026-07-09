@@ -44,6 +44,7 @@
 	"files": ["dist"],
 	"scripts": {
 		"build": "tsc -p tsconfig.json && node scripts/copy-css.mjs",
+		"prepack": "pnpm build",
 		"typecheck": "tsc --noEmit"
 	},
 	"peerDependencies": {
@@ -51,8 +52,10 @@
 		"react-dom": "^18.0.0 || ^19.0.0"
 	},
 	"devDependencies": {
+		"@semantic-release/git": "^10.0.1",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
+		"semantic-release": "^24.2.3",
 		"typescript": "^5.9.3"
 	},
 	"publishConfig": {

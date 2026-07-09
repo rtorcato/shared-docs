@@ -55,10 +55,17 @@ export const FAMILY = [
         accent: '#ff6f4d',
     },
     {
+        name: '@rtorcato/supabase-common',
+        tagline: 'Shared, tree-shakeable TypeScript helpers for Supabase — client, auth, and database utilities.',
+        href: 'https://github.com/rtorcato/supabase-common',
+        dest: 'GitHub',
+        accent: '#3ecf8e',
+    },
+    {
         name: '@rtorcato/js-tooling',
         tagline: 'Shared Biome, TypeScript and Vitest presets that power the @rtorcato/* family.',
         href: 'https://rtorcato.github.io/js-tooling/',
         dest: 'Docs',
-        accent: '#34d399',
+        accent: '#22d3ee',
     },
 ];
