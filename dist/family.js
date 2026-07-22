@@ -1,7 +1,8 @@
 // Single source of truth for the @rtorcato open-source family.
 //
-// Consumed by every sibling docs site (both the Node-side Docusaurus config and
-// the browser-side landing page). Edit the family in ONE place: here.
+// Framework-neutral data — consumed by every sibling docs site (the Node-side
+// config and the browser-side landing page) regardless of framework
+// (Docusaurus, Fumadocs, …). Edit the family in ONE place: here.
 /** Short nav/footer label, derived from the package name — no redundant field. */
 export const label = (m) => m.name.replace('@rtorcato/', '');
 export const FAMILY = [
