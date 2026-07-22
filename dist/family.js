@@ -58,8 +58,8 @@ export const FAMILY = [
     {
         name: '@rtorcato/supabase-common',
         tagline: 'Shared, tree-shakeable TypeScript helpers for Supabase — client, auth, and database utilities.',
-        href: 'https://github.com/rtorcato/supabase-common',
-        dest: 'GitHub',
+        href: 'https://rtorcato.github.io/supabase-common/',
+        dest: 'Docs',
         accent: '#3ecf8e',
     },
     {
