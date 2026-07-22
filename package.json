@@ -1,11 +1,12 @@
 {
 	"name": "@rtorcato/shared-docs",
 	"version": "1.0.0",
-	"description": "Shared data and Docusaurus helpers for the @rtorcato docs sites — the sibling-family list, nav/footer builders.",
+	"description": "Shared data and helpers for the @rtorcato docs sites — the framework-neutral sibling-family list and nav/footer builders, plus Docusaurus components.",
 	"type": "module",
 	"packageManager": "pnpm@11.9.0",
 	"keywords": [
 		"docusaurus",
+		"fumadocs",
 		"docs",
 		"rtorcato"
 	],
