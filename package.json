@@ -1,9 +1,15 @@
 {
 	"name": "@rtorcato/shared-docs",
-	"version": "0.1.0",
-	"description": "Shared data and Docusaurus helpers for the @rtorcato docs sites — the sibling-family list, nav/footer builders.",
+	"version": "1.1.0",
+	"description": "Shared data and helpers for the @rtorcato docs sites — the framework-neutral sibling-family list and nav/footer builders, plus Docusaurus components.",
 	"type": "module",
-	"keywords": ["docusaurus", "docs", "rtorcato"],
+	"packageManager": "pnpm@11.9.0",
+	"keywords": [
+		"docusaurus",
+		"fumadocs",
+		"docs",
+		"rtorcato"
+	],
 	"author": "Richard Torcato",
 	"license": "MIT",
 	"repository": {
@@ -14,7 +20,9 @@
 	"bugs": {
 		"url": "https://github.com/rtorcato/shared-docs/issues"
 	},
-	"sideEffects": ["**/*.css"],
+	"sideEffects": [
+		"**/*.css"
+	],
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
@@ -41,9 +49,12 @@
 		},
 		"./package.json": "./package.json"
 	},
-	"files": ["dist"],
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json && node scripts/copy-css.mjs",
+		"prepack": "pnpm build",
 		"typecheck": "tsc --noEmit"
 	},
 	"peerDependencies": {
@@ -51,8 +62,10 @@
 		"react-dom": "^18.0.0 || ^19.0.0"
 	},
 	"devDependencies": {
+		"@semantic-release/git": "^10.0.1",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
+		"semantic-release": "^24.2.3",
 		"typescript": "^5.9.3"
 	},
 	"publishConfig": {

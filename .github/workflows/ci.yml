@@ -1,19 +1,21 @@
 name: CI
 
 on:
-  push:
-    branches: [main]
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 11
       - uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -21,5 +23,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm build
-      # dist/ is committed for git-dep consumers — fail if it drifted from src/
-      - run: git diff --exit-code dist
+      # dist/ is committed on purpose (git-dep consumers install prebuilt output),
+      # so a rebuild that changes it means the committed copy is stale.
+      - name: Check committed dist/ is up to date
+        run: git diff --exit-code dist

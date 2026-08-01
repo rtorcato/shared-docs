@@ -1,7 +1,8 @@
 // Single source of truth for the @rtorcato open-source family.
 //
-// Consumed by every sibling docs site (both the Node-side Docusaurus config and
-// the browser-side landing page). Edit the family in ONE place: here.
+// Framework-neutral data — consumed by every sibling docs site (the Node-side
+// config and the browser-side landing page) regardless of framework
+// (Docusaurus, Fumadocs, …). Edit the family in ONE place: here.
 
 export type FamilyMember = {
 	/** npm package name, e.g. "@rtorcato/api-common" */
@@ -71,10 +72,17 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#ff6f4d',
 	},
 	{
+		name: '@rtorcato/supabase-common',
+		tagline: 'Shared, tree-shakeable TypeScript helpers for Supabase — client, auth, and database utilities.',
+		href: 'https://rtorcato.github.io/supabase-common/',
+		dest: 'Docs',
+		accent: '#3ecf8e',
+	},
+	{
 		name: '@rtorcato/js-tooling',
 		tagline: 'Shared Biome, TypeScript and Vitest presets that power the @rtorcato/* family.',
 		href: 'https://rtorcato.github.io/js-tooling/',
 		dest: 'Docs',
-		accent: '#34d399',
+		accent: '#22d3ee',
 	},
 ]
