@@ -8,6 +8,9 @@ permissions:
   contents: write
   issues: write
   pull-requests: write
+  # Required for npm trusted publishing (OIDC) — without it GitHub mints no
+  # token for the job and @semantic-release/npm falls back to NPM_TOKEN.
+  id-token: write
 
 jobs:
   release:
@@ -23,7 +26,9 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      # No NPM_TOKEN: auth comes from the OIDC trusted publisher configured for
+      # this package on npmjs.com. Setting it would send @semantic-release/npm
+      # down the token path and fail verification if the token has expired.
       - run: pnpm exec semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
