@@ -1,6 +1,7 @@
 # @rtorcato/shared-docs
 
-Shared data and Docusaurus helpers for the `@rtorcato` docs sites.
+Shared data and helpers for the `@rtorcato` docs sites — the framework-neutral
+sibling-family list and nav/footer builders, plus Docusaurus components.
 
 The single source of truth for the **sibling-family list** — the cross-links
 every `@rtorcato/*` docs site shows in its nav, footer, and landing grid. Edit
@@ -8,18 +9,22 @@ the family once here; each site picks it up on its next build.
 
 ## Install
 
-Not published to npm — consumed directly from GitHub as a git dependency. The
-built `dist/` is committed, so there's no install-time build step (no
-`allowBuilds` allowlisting needed in consumers).
-
 ```sh
-pnpm add -D "@rtorcato/shared-docs@github:rtorcato/shared-docs"
+pnpm add -D @rtorcato/shared-docs
 ```
 
-Pin to a tag or commit for reproducible builds, e.g.
-`github:rtorcato/shared-docs#v0.1.0`. Update with `pnpm update @rtorcato/shared-docs`.
+Published to npm as a normal semver package. There's no install-time build step
+(no `allowBuilds` allowlisting needed in consumers). Update with
+`pnpm update @rtorcato/shared-docs`.
 
-> Maintainers: run `pnpm build` and commit `dist/` whenever you change `src/`.
+> **Migrating from the git dependency?** Earlier versions of this README
+> recommended `github:rtorcato/shared-docs`, which resolves to whatever is
+> currently on `main` — unpinned, and updated with no release step in between.
+> Replace it with the npm dep above. `dist/` stays committed until the last
+> git-dep consumer has moved across (see #8).
+
+> Maintainers: while `dist/` is still committed, run `pnpm build` and commit it
+> whenever you change `src/`. CI fails if the committed copy is stale.
 
 ## Usage
 
@@ -51,9 +56,22 @@ const SIBLINGS = siblings('@rtorcato/cf-common')
 - `siblings(selfName): FamilyMember[]` — the family minus one package, for a grid.
 - `projectFamilyItems(): { label, href }[]` — nav/footer link items for the whole family.
 - `label(member): string` — short label (package name without the `@rtorcato/` scope).
+- `copyright(builtWith?): string` — footer copyright line, stamped with the current
+  year. Defaults to `'Docusaurus'`; a Fumadocs site passes `copyright('Fumadocs')`.
+- `GITHUB_PROFILE: string` — the `@rtorcato` GitHub profile URL.
 - `FamilyMember` — `{ name, tagline, href, dest, accent }`.
+
+Two behaviours worth knowing, both intentional:
+
+- `siblings()` returns the **full list unchanged** if `selfName` isn't in `FAMILY`,
+  so a typo makes a site render itself in its own grid. Pass the exact package name.
+- `label()` only strips `@rtorcato/`. A member outside that scope renders as-is.
 
 ## Adding / editing a sibling
 
-Edit `src/family.ts`, bump the version, publish. Consuming sites update via
-`pnpm update @rtorcato/shared-docs` on their next build.
+Edit `src/family.ts`, run `pnpm build`, and commit `src/` and `dist/` together.
+
+Don't bump `version` or tag by hand — semantic-release does that from the commit
+message on push to `main`. Use `feat:` or `fix:`; a `chore:` or `docs:` commit
+publishes nothing, so the change never reaches consumers. Sites then pick it up via
+`pnpm update @rtorcato/shared-docs`.
