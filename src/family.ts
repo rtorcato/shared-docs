@@ -79,10 +79,19 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#3ecf8e',
 	},
 	{
-		name: '@rtorcato/js-tooling',
-		tagline: 'Shared Biome, TypeScript and Vitest presets that power the @rtorcato/* family.',
-		href: 'https://rtorcato.github.io/js-tooling/',
+		name: '@rtorcato/repo-tooling',
+		tagline:
+			'One wizard to scaffold TypeScript, linting, testing, and releases for any JS project.',
+		href: 'https://rtorcato.github.io/repo-tooling/',
 		dest: 'Docs',
 		accent: '#22d3ee',
+	},
+	{
+		// Not @rtorcato-scoped, so `label()` renders the name as-is — intentional.
+		name: 'db-x',
+		tagline: 'Production-grade database schema deployment with the ergonomics of a JSX component.',
+		href: 'https://rtorcato.github.io/db-x/',
+		dest: 'Docs',
+		accent: '#10b981',
 	},
 ]
