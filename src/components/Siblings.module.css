@@ -41,7 +41,8 @@
 	background: var(--ifm-card-background-color);
 	border: 1px solid var(--ifm-color-emphasis-200);
 	border-radius: 16px;
-	/* Docusaurus <Link> ships an underline we need to suppress on cards. */
+	/* biome-ignore lint/complexity/noImportantStyles: Docusaurus <Link> ships an
+	   underline on cards that only !important beats. */
 	text-decoration: none !important;
 	color: inherit;
 	transition:
