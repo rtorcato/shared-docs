@@ -10,8 +10,24 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Four jobs rather than one, named to match the family standard's required
+# status checks (lint, typecheck, build, test) so branch protection can require
+# them by name. Deliberately without repo-tooling's shared `dependencies` cache
+# job — five source files don't justify the extra hop.
 jobs:
-  verify:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+
+  typecheck:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -22,10 +38,34 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      # Tests import dist/, so they run after the build.
-      - run: pnpm test
       # dist/ is committed on purpose (git-dep consumers install prebuilt output),
       # so a rebuild that changes it means the committed copy is stale.
       - name: Check committed dist/ is up to date
         run: git diff --exit-code dist
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Tests import dist/, so they need the build even though `build` is a
+      # separate job — cheaper than passing artifacts between two short jobs.
+      - run: pnpm build
+      - run: pnpm test
