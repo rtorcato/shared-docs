@@ -1,22 +1,23 @@
 /* InstallTabs.module.css — underline tabs + command row.
-   Brand-neutral: the accent uses Docusaurus's --ifm-color-primary, so it picks
-   up each consuming site's theme colour. Other values are the shared dark
-   install-window palette (all @rtorcato docs sites are dark-default). */
+   Brand-neutral and themed via Infima (--ifm-*) vars, so it picks up each
+   consuming site's palette *and* colour mode; the surface tracks
+   --ifm-pre-background, so this block matches a plain fenced code block on the
+   same page. Fallbacks keep the navy look on a site that doesn't define them. */
 
 .wrap {
 	width: 100%;
 	max-width: 460px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
+	border: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.1));
 	border-radius: 14px;
 	overflow: hidden;
-	background: #0c111b;
+	background: var(--ifm-pre-background, #0c111b);
 	text-align: left;
 }
 
 .tabs {
 	display: flex;
 	padding: 0 8px;
-	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	border-bottom: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.08));
 }
 
 .tab,
@@ -30,12 +31,12 @@
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-size: 13px;
 	font-weight: 600;
-	color: #94a1b4;
+	color: var(--ifm-color-emphasis-600, #94a1b4);
 	border-bottom: 2px solid transparent;
 	transition: color 0.15s;
 }
 .tab:hover {
-	color: #fff;
+	color: var(--ifm-heading-color, #fff);
 }
 .tabActive {
 	color: var(--ifm-color-primary);
@@ -49,7 +50,7 @@
 	padding: 15px 14px 15px 16px;
 }
 .prompt {
-	color: #647184;
+	color: var(--ifm-color-emphasis-500, #647184);
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-weight: 600;
 	font-size: 14px;
@@ -61,7 +62,7 @@
 	white-space: nowrap;
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-size: 14px;
-	color: #dfe5ee;
+	color: var(--ifm-pre-color, #dfe5ee);
 	background: transparent;
 	border: none;
 	padding: 0;
@@ -75,10 +76,10 @@
 	flex: none;
 	width: 34px;
 	height: 34px;
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	background: #111824;
+	border: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.1));
+	background: var(--ifm-color-emphasis-100, #111824);
 	border-radius: 9px;
-	color: #94a1b4;
+	color: var(--ifm-color-emphasis-600, #94a1b4);
 	cursor: pointer;
 	transition:
 		border-color 0.15s,
@@ -89,6 +90,8 @@
 	color: var(--ifm-color-primary);
 }
 .copy[data-copied="true"] {
-	color: #28c840;
-	border-color: rgba(40, 200, 64, 0.4);
+	/* Infima's success colour is themed per mode; the bright #28c840 fallback
+	   only reads on the dark surface. */
+	color: var(--ifm-color-success, #28c840);
+	border-color: color-mix(in srgb, var(--ifm-color-success, #28c840) 40%, transparent);
 }
