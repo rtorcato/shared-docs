@@ -23,6 +23,8 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm build
+      # Tests import dist/, so they run after the build.
+      - run: pnpm test
       # dist/ is committed on purpose (git-dep consumers install prebuilt output),
       # so a rebuild that changes it means the committed copy is stale.
       - name: Check committed dist/ is up to date
