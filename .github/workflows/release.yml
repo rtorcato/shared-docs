@@ -29,6 +29,13 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      # OIDC trusted publishing is done by the npm CLI, not by semantic-release
+      # itself — and it needs npm >= 11.5.1. Node 22 ships npm 10.x, which
+      # ignores the OIDC credentials semantic-release already exchanged and
+      # fails the upload with ENEEDAUTH. Same fix api-common carries.
+      - name: Upgrade npm for OIDC trusted publishing
+        run: npm install -g npm@latest
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       # No NPM_TOKEN: auth comes from the OIDC trusted publisher configured for
