@@ -1,4 +1,4 @@
-import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { Fragment as _Fragment, jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import styles from './InstallTabs.module.css';
 // Named rather than reached for as MANAGERS[0], which `noUncheckedIndexedAccess`
