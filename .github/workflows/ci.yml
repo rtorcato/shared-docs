@@ -54,6 +54,13 @@ jobs:
       # so a rebuild that changes it means the committed copy is stale.
       - name: Check committed dist/ is up to date
         run: git diff --exit-code dist
+      # Steps of `build` rather than a fifth job: branch protection requires the
+      # four check names, so a new job could fail without blocking anything.
+      # Both pack the tarball, which is what they need to inspect.
+      - name: Validate the published package (publint)
+        run: pnpm publint
+      - name: Validate the published types (attw)
+        run: pnpm attw
 
   test:
     runs-on: ubuntu-latest

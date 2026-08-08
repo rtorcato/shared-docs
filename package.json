@@ -57,17 +57,21 @@
 		"prepack": "pnpm build",
 		"typecheck": "tsc --noEmit",
 		"lint": "biome lint .",
-		"test": "node --test"
+		"test": "node --test",
+		"publint": "publint --strict",
+		"attw": "attw --pack --profile esm-only"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
 		"react-dom": "^18.0.0 || ^19.0.0"
 	},
 	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.5",
 		"@biomejs/biome": "^2.5.7",
 		"@rtorcato/repo-tooling": "^3.1.0",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
+		"publint": "^0.3.23",
 		"semantic-release": "^25.0.8",
 		"typescript": "^7.0.2"
 	},
