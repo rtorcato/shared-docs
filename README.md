@@ -67,6 +67,20 @@ Two behaviours worth knowing, both intentional:
   so a typo makes a site render itself in its own grid. Pass the exact package name.
 - `label()` only strips `@rtorcato/`. A member outside that scope renders as-is.
 
+## Use with AI
+
+This repo ships a self-contained agent skill so coding agents wire the nav, footer,
+and sibling grid correctly — including the two footguns above.
+
+**Any agent with the [`skills`](https://www.npmjs.com/package/skills) CLI** — one
+command, straight from GitHub (no clone, no package install):
+
+```sh
+npx skills add https://github.com/rtorcato/shared-docs --skill shared-docs
+```
+
+Source: [`skills/shared-docs/SKILL.md`](./skills/shared-docs/SKILL.md).
+
 ## Adding / editing a sibling
 
 Edit `src/family.ts`, run `pnpm build`, and commit `src/` and `dist/` together.
