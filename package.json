@@ -65,6 +65,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.7",
+		"@rtorcato/repo-tooling": "^3.1.0",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"semantic-release": "^25.0.8",

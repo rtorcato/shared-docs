@@ -6,8 +6,12 @@ type Manager = {
 	cmd: (pkg: string) => string
 }
 
+// Named rather than reached for as MANAGERS[0], which `noUncheckedIndexedAccess`
+// widens to `Manager | undefined` — the fallback below has to be a real value.
+const NPM: Manager = { id: 'npm', cmd: (p) => `npm install ${p}` }
+
 const MANAGERS: Manager[] = [
-	{ id: 'npm', cmd: (p) => `npm install ${p}` },
+	NPM,
 	{ id: 'pnpm', cmd: (p) => `pnpm add ${p}` },
 	{ id: 'yarn', cmd: (p) => `yarn add ${p}` },
 	{ id: 'bun', cmd: (p) => `bun add ${p}` },
@@ -48,7 +52,7 @@ type InstallTabsProps = {
 export default function InstallTabs({ pkg }: InstallTabsProps): ReactElement {
 	const [active, setActive] = useState('npm')
 	const [copied, setCopied] = useState(false)
-	const cmd = (MANAGERS.find((m) => m.id === active) ?? MANAGERS[0]).cmd(pkg)
+	const cmd = (MANAGERS.find((m) => m.id === active) ?? NPM).cmd(pkg)
 
 	async function copy() {
 		try {

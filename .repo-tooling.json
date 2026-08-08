@@ -1,0 +1,32 @@
+{
+  "$schema": "https://rtorcato.github.io/repo-tooling/schemas/lockfile.json",
+  "version": 2,
+  "config": {
+    "projectName": "@rtorcato/shared-docs",
+    "language": "js",
+    "projectType": "library",
+    "typescript": {
+      "enabled": true,
+      "config": "react"
+    },
+    "linting": {
+      "tool": "biome"
+    },
+    "formatting": {
+      "tool": "biome"
+    },
+    "testing": {
+      "framework": "none",
+      "environment": "node"
+    },
+    "gitHooks": false,
+    "commitLint": false,
+    "semanticRelease": true,
+    "securityAutomation": false,
+    "bundler": "none",
+    "publint": false,
+    "badges": false
+  },
+  "writtenBy": "@rtorcato/repo-tooling@3.2.4",
+  "writtenAt": "2026-08-08T12:54:40.024Z"
+}

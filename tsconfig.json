@@ -1,17 +1,30 @@
 {
+	"extends": "@rtorcato/repo-tooling/typescript/react",
 	"compilerOptions": {
-		"target": "ES2021",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"lib": ["ES2021", "DOM", "DOM.Iterable"],
-		"jsx": "react-jsx",
+		// The preset is written for projects that only typecheck (noEmit on,
+		// declarations off, JS emitted by a bundler). This package IS its build
+		// output — `tsc` emits dist/ and the .d.ts files — so the emit block is
+		// inverted here.
+		"noEmit": false,
 		"declaration": true,
 		"outDir": "dist",
 		"rootDir": "src",
-		"strict": true,
-		"skipLibCheck": true,
-		"verbatimModuleSyntax": true,
-		"forceConsistentCasingInFileNames": true
+		// One-shot build. The preset turns `incremental` on; with a stale
+		// tsbuildinfo tsc emits zero files, which CI's "committed dist/ is up to
+		// date" check would then read as clean.
+		"incremental": false,
+		// The preset turns sourcemaps on for projects that ship their sources. This
+		// one publishes `files: ["dist"]`, so the maps would point at src/ paths
+		// that aren't in the tarball — and they'd land in the committed dist/ too.
+		"sourceMap": false,
+		// The preset lists "vitest"; this package tests with node:test, so naming
+		// it fails with TS2688 (cannot find type definition file).
+		"types": ["react", "react-dom"],
+		// CSS modules are declared with an index signature (src/shims.d.ts), which
+		// is exactly what this rule flags — it would turn every `styles.card` into
+		// `styles['card']` for no safety gain, since the keys aren't known either way.
+		"noPropertyAccessFromIndexSignature": false,
+		"verbatimModuleSyntax": true
 	},
 	"include": ["src"]
 }

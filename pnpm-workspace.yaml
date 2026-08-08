@@ -1,0 +1,8 @@
+# Family packages skip the minimum-release-age gate — they're ours, so a fresh
+# publish doesn't need to age before this repo can pick it up.
+minimumReleaseAgeExclude:
+  - '@rtorcato/*'
+
+# Don't re-verify node_modules on every script run — the check costs a
+# second per invocation and CI installs with --frozen-lockfile anyway.
+verifyDepsBeforeRun: false

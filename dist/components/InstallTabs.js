@@ -1,8 +1,11 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useState } from 'react';
 import styles from './InstallTabs.module.css';
+// Named rather than reached for as MANAGERS[0], which `noUncheckedIndexedAccess`
+// widens to `Manager | undefined` — the fallback below has to be a real value.
+const NPM = { id: 'npm', cmd: (p) => `npm install ${p}` };
 const MANAGERS = [
-    { id: 'npm', cmd: (p) => `npm install ${p}` },
+    NPM,
     { id: 'pnpm', cmd: (p) => `pnpm add ${p}` },
     { id: 'yarn', cmd: (p) => `yarn add ${p}` },
     { id: 'bun', cmd: (p) => `bun add ${p}` },
@@ -14,7 +17,7 @@ export function CopyIcon({ done }) {
 export default function InstallTabs({ pkg }) {
     const [active, setActive] = useState('npm');
     const [copied, setCopied] = useState(false);
-    const cmd = (MANAGERS.find((m) => m.id === active) ?? MANAGERS[0]).cmd(pkg);
+    const cmd = (MANAGERS.find((m) => m.id === active) ?? NPM).cmd(pkg);
     async function copy() {
         try {
             await navigator.clipboard.writeText(cmd);
