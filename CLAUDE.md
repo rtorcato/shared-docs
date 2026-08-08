@@ -47,3 +47,19 @@ Two traps in the API, both intentional:
 - `label()` only strips `@rtorcato/`, so a non-scoped member (`db-x`) renders as-is.
 
 See `README.md` for the public API.
+
+## Boundary with repo-tooling (#10)
+
+- **This repo** — family data, nav/footer builders, React components + their CSS modules.
+- **`repo-tooling`'s `tooling/docusaurus/`** — the Docusaurus preset, `theme.css`,
+  and `theme-tokens.css` (the `--ifm-*`/`--jt-*` colour tokens).
+
+Colour is owned by the theme, not by this repo. New CSS here consumes a themed
+variable, with a literal only as a fallback for a site that hasn't imported the
+theme tokens — e.g. `CommandBlock.module.css` and `InstallTabs.module.css` do
+`background: var(--ifm-pre-background, #0c111b)`. Never introduce a colour
+literal that duplicates a value the theme already defines.
+
+Why: `#0c111b` was hardcoded three times — repo-tooling's `theme.css`, every
+site's `docusaurus.config.ts`, and these components — and drifted, which is
+what caused the light-mode code-block bug (#6). Fixed here in #17.

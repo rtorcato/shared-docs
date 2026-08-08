@@ -89,3 +89,9 @@ Don't bump `version` or tag by hand — semantic-release does that from the comm
 message on push to `main`. Use `feat:` or `fix:`; a `chore:` or `docs:` commit
 publishes nothing, so the change never reaches consumers. Sites then pick it up via
 `pnpm update @rtorcato/shared-docs`.
+
+## Colour and theming
+
+This repo's components consume `--ifm-*`/`--jt-*` colour tokens; `repo-tooling`'s
+`tooling/docusaurus/` owns the theme that defines them. See "Boundary with
+repo-tooling" in `CLAUDE.md` before adding CSS.
