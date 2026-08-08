@@ -5,3 +5,8 @@ node_modules
 # Overrides the user's global ~/.gitignore_global `dist/` rule.
 !dist/
 
+# …but not sourcemaps. `files: ["dist"]` doesn't publish src/, so a .js.map
+# would point at paths that aren't in the tarball. tsconfig sets
+# `sourceMap: false`; this keeps a stray one out if that ever flips back.
+dist/**/*.map
+
