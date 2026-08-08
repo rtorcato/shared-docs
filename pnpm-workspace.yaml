@@ -6,3 +6,10 @@ minimumReleaseAgeExclude:
 # Don't re-verify node_modules on every script run — the check costs a
 # second per invocation and CI installs with --frozen-lockfile anyway.
 verifyDepsBeforeRun: false
+
+# CVE-2026-59870 — quadratic CPU consumption resolving YAML !!omap. Reached only
+# transitively (semantic-release → cosmiconfig → js-yaml ^4.1.0), and the fix
+# ships on the `v4-legacy` dist-tag, which a plain `pnpm update` won't select.
+# Drop this once cosmiconfig's range starts at 4.3.1.
+overrides:
+  js-yaml@>=4.0.0 <4.3.1: 4.3.1
