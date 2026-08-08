@@ -34,6 +34,18 @@ is what decides whether consumers get the change:
 
 A change that consumers need to install must therefore land as `feat:` or `fix:`.
 
+**`version` in `package.json` is stale on purpose and always will be.** #24 dropped
+`@semantic-release/git`, so nothing commits the bump back to `main` — semantic-release
+sets the version in the published tarball at publish time. The git tag and the npm
+registry are the record; `package.json` on `main` is not. Don't "fix" it.
+
+```sh
+npm view @rtorcato/shared-docs version   # the real answer
+git tag --sort=-v:refname | head -1      # should agree
+```
+
+If those two ever disagree, a release failed silently — that has happened before.
+
 ## Editing the family
 
 Edit `src/family.ts`, `pnpm build`, commit both `src/` and `dist/`, and use a `feat:`

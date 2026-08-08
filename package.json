@@ -58,6 +58,7 @@
 		"typecheck": "tsc --noEmit",
 		"lint": "biome lint .",
 		"test": "node --test",
+		"check:links": "node scripts/check-family-links.mjs",
 		"publint": "publint --strict",
 		"attw": "attw --pack --profile esm-only"
 	},

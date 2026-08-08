@@ -90,6 +90,10 @@ message on push to `main`. Use `feat:` or `fix:`; a `chore:` or `docs:` commit
 publishes nothing, so the change never reaches consumers. Sites then pick it up via
 `pnpm update @rtorcato/shared-docs`.
 
+> The `version` field in `package.json` is **deliberately stale** — nothing commits
+> the bump back to `main`. `npm view @rtorcato/shared-docs version` and the newest
+> git tag are the real answer.
+
 ## Colour and theming
 
 This repo's components consume `--ifm-*`/`--jt-*` colour tokens; `repo-tooling`'s
