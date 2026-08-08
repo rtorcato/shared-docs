@@ -1,0 +1,30 @@
+version: 2
+updates:
+  # This repo has no runtime dependencies — react/react-dom are peers — so
+  # everything here is dev tooling. Grouped into one PR a week: five source
+  # files don't justify a PR per patch bump, and a single grouped PR still
+  # runs all four required checks.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    groups:
+      dev-dependencies:
+        patterns: ['*']
+    commit-message:
+      # `chore:` publishes nothing (semantic-release only releases feat/fix),
+      # which is right for a devDep bump — but a security fix that needs to
+      # reach consumers must be relabelled `fix:` by hand before merging.
+      prefix: chore
+      include: scope
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+    commit-message:
+      prefix: ci
