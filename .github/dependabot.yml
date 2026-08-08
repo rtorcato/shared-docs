@@ -12,6 +12,12 @@ updates:
     groups:
       dev-dependencies:
         patterns: ['*']
+        # Minor and patch only. Without this, a major lands inside a PR titled
+        # "bump the dev-dependencies group" alongside three patch bumps — #33
+        # carried typescript 5.9.3 → 7.0.2 that way, and TS 7 changes tsc's
+        # emit, so it failed the committed-dist/ check rather than reading as
+        # the deliberate upgrade it is. Majors now arrive as their own PR.
+        update-types: [minor, patch]
     commit-message:
       # `chore:` publishes nothing (semantic-release only releases feat/fix),
       # which is right for a devDep bump — but a security fix that needs to
