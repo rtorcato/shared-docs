@@ -10,3 +10,7 @@ node_modules
 # `sourceMap: false`; this keeps a stray one out if that ever flips back.
 dist/**/*.map
 
+# Machine-local scratch written by the `ai-issue-loop` skill each tick — the
+# statusline reads it. Rewritten every 15min, so it would otherwise sit dirty
+# and get swept into an agent's commit.
+.claude/ai-loop-status
