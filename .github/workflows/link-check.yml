@@ -1,0 +1,49 @@
+name: Link check
+
+# Weekly, not per-PR. The hrefs in src/family.ts point at ten sibling docs
+# sites, so a PR check here would fail on someone else's outage. Drift is the
+# real risk (#7: four entries went dead and nothing noticed), and drift is slow.
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # The script imports dist/, same as the tests.
+      - run: pnpm build
+      - id: check
+        run: pnpm check:links 2>&1 | tee /tmp/links.txt
+
+      # A scheduled run that just goes red is how the Dependabot advisory sat
+      # unread — nobody watches the Actions tab. File an issue instead, and
+      # reuse the open one rather than filing a duplicate every Monday.
+      - name: Open an issue for dead links
+        if: failure() && steps.check.outcome == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TITLE: A FAMILY href no longer resolves
+        run: |
+          existing=$(gh issue list --state open --search "$TITLE in:title" --json number --jq '.[0].number')
+          body=$(printf '%s\n\n```\n%s\n```\n\n%s\n' \
+            "The weekly link check found an unreachable \`href\` in \`src/family.ts\`. Every sibling docs site renders these in its nav, footer, and landing grid." \
+            "$(cat /tmp/links.txt)" \
+            "Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "$body"
+          else
+            gh issue create --title "$TITLE" --body "$body"
+          fi
