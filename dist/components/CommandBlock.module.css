@@ -1,16 +1,28 @@
 /* CommandBlock.module.css — stacked copyable command rows.
    Themed via Infima (--ifm-*) vars so it follows the site's colour mode; the
    surface tracks --ifm-pre-background, so this block matches a plain fenced
-   code block on the same page. Fallbacks keep the navy look on a site that
-   doesn't define them. */
+   code block on the same page.
+
+   Fallbacks are `light-dark(light, dark)` pairs, not dark-mode snapshots. They
+   only ever evaluate on a host that doesn't define the --ifm-* vars — a plain
+   Docusaurus site always does, via Infima. Previously every fallback was a
+   dark literal, so such a host rendered a black block with light text in light
+   mode (#40, same shape as the #6 bug that motivated the token boundary).
+   The literals below are the light/dark pairs already defined in
+   repo-tooling's theme-tokens.css — no new colours are introduced here.
+
+   `color-scheme` is deliberately NOT set on .wrap: Docusaurus declares it at
+   :root so light-dark() follows the site's theme toggle, and a non-Docusaurus
+   host that has set it gets the mode it asked for. */
 
 .wrap {
 	width: 100%;
 	max-width: 560px;
-	border: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.1));
+	border: 1px solid
+		var(--ifm-color-emphasis-200, light-dark(rgba(12, 18, 28, 0.1), rgba(255, 255, 255, 0.1)));
 	border-radius: 14px;
 	overflow: hidden;
-	background: var(--ifm-pre-background, #0c111b);
+	background: var(--ifm-pre-background, light-dark(#f3f6f9, #0c111b));
 	text-align: left;
 }
 
@@ -21,7 +33,8 @@
 	padding: 15px 14px 15px 16px;
 }
 .row + .row {
-	border-top: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.08));
+	border-top: 1px solid
+		var(--ifm-color-emphasis-200, light-dark(rgba(12, 18, 28, 0.1), rgba(255, 255, 255, 0.08)));
 }
 
 .cmd {
@@ -31,7 +44,7 @@
 	white-space: nowrap;
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-size: 14px;
-	color: var(--ifm-pre-color, #dfe5ee);
+	color: var(--ifm-pre-color, light-dark(#374253, #dfe5ee));
 	background: transparent;
 	border: none;
 	padding: 0;
@@ -46,10 +59,11 @@
 	flex: none;
 	width: 34px;
 	height: 34px;
-	border: 1px solid var(--ifm-color-emphasis-200, rgba(255, 255, 255, 0.1));
-	background: var(--ifm-color-emphasis-100, #111824);
+	border: 1px solid
+		var(--ifm-color-emphasis-200, light-dark(rgba(12, 18, 28, 0.1), rgba(255, 255, 255, 0.1)));
+	background: var(--ifm-color-emphasis-100, light-dark(#ffffff, #111824));
 	border-radius: 9px;
-	color: var(--ifm-color-emphasis-600, #94a1b4);
+	color: var(--ifm-color-emphasis-600, light-dark(#5b6675, #94a1b4));
 	cursor: pointer;
 	transition:
 		border-color 0.15s,
@@ -60,8 +74,24 @@
 	color: var(--ifm-color-primary);
 }
 .copy[data-copied="true"] {
-	/* Infima's success colour is themed per mode; the bright #28c840 fallback
-	   only reads on the dark surface. */
-	color: var(--ifm-color-success, #28c840);
-	border-color: color-mix(in srgb, var(--ifm-color-success, #28c840) 40%, transparent);
+	color: var(--ifm-color-success, light-dark(#00a400, #28c840));
+	border-color: color-mix(
+		in srgb,
+		var(--ifm-color-success, light-dark(#00a400, #28c840)) 40%,
+		transparent
+	);
+}
+
+/* Phone. The command already scrolls rather than overflowing (.cmd is
+   overflow-x: auto), so this only reclaims the horizontal padding that was
+   eating into the readable width. */
+@media (max-width: 480px) {
+	.row {
+		gap: 8px;
+		padding: 12px 10px 12px 12px;
+	}
+	.copy {
+		width: 30px;
+		height: 30px;
+	}
 }
