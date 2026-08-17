@@ -50,10 +50,6 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      # dist/ is committed on purpose (git-dep consumers install prebuilt output),
-      # so a rebuild that changes it means the committed copy is stale.
-      - name: Check committed dist/ is up to date
-        run: git diff --exit-code dist
       # Steps of `build` rather than a fifth job: branch protection requires the
       # four check names, so a new job could fail without blocking anything.
       # Both pack the tarball, which is what they need to inspect.

@@ -20,11 +20,8 @@ Published to npm as a normal semver package. There's no install-time build step
 > **Migrating from the git dependency?** Earlier versions of this README
 > recommended `github:rtorcato/shared-docs`, which resolves to whatever is
 > currently on `main` — unpinned, and updated with no release step in between.
-> Replace it with the npm dep above. `dist/` stays committed until the last
-> git-dep consumer has moved across (see #8).
-
-> Maintainers: while `dist/` is still committed, run `pnpm build` and commit it
-> whenever you change `src/`. CI fails if the committed copy is stale.
+> Replace it with the npm dep above. That path no longer works: `dist/` is not
+> committed, and the git dep has no build step.
 
 ## Usage
 
@@ -83,7 +80,8 @@ Source: [`skills/shared-docs/SKILL.md`](./skills/shared-docs/SKILL.md).
 
 ## Adding / editing a sibling
 
-Edit `src/family.ts`, run `pnpm build`, and commit `src/` and `dist/` together.
+Edit `src/family.ts` and commit. `dist/` is build output and isn't tracked —
+`prepack` builds it at publish time.
 
 Don't bump `version` or tag by hand — semantic-release does that from the commit
 message on push to `main`. Use `feat:` or `fix:`; a `chore:` or `docs:` commit
