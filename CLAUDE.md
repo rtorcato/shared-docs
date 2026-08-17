@@ -68,10 +68,19 @@ See `README.md` for the public API.
 
 Colour is owned by the theme, not by this repo. New CSS here consumes a themed
 variable, with a literal only as a fallback for a site that hasn't imported the
-theme tokens — e.g. `CommandBlock.module.css` and `InstallTabs.module.css` do
-`background: var(--ifm-pre-background, #0c111b)`. Never introduce a colour
-literal that duplicates a value the theme already defines.
+theme tokens. **That fallback must be a `light-dark()` pair, never a bare
+literal** — e.g. `CommandBlock.module.css` and `InstallTabs.module.css` do
+`background: var(--ifm-pre-background, light-dark(#f3f6f9, #0c111b))`. Never
+introduce a colour literal that duplicates a value the theme already defines;
+take both halves of the pair from `theme-tokens.css`.
 
 Why: `#0c111b` was hardcoded three times — repo-tooling's `theme.css`, every
 site's `docusaurus.config.ts`, and these components — and drifted, which is
 what caused the light-mode code-block bug (#6). Fixed here in #17.
+
+A bare-literal fallback is that same bug one level down: #17 made the fallbacks
+token-aware but left every literal a dark-mode snapshot, so a host without the
+tokens rendered a black block with light text in light mode. Fixed in #40 by
+pairing them. `color-scheme` is deliberately not set on the components —
+Docusaurus declares it at `:root`, so `light-dark()` follows the site's own
+theme toggle rather than the OS preference.
