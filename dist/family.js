@@ -44,8 +44,8 @@ export const FAMILY = [
     {
         name: '@rtorcato/react-common',
         tagline: 'Published React 19 component library — shared UI primitives.',
-        href: 'https://github.com/rtorcato/react-common',
-        dest: 'GitHub',
+        href: 'https://rtorcato.github.io/react-common/',
+        dest: 'Docs',
         accent: '#818cf8',
     },
     {
