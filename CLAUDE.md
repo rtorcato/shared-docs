@@ -7,13 +7,19 @@ footer, and landing grid.
 
 ## Commands
 
-- `pnpm build` — `tsc` + copy CSS to `dist/`. Run it before `pnpm test`: the tests
-  import `dist/`, and it's no longer in the tree for you.
+- `pnpm build` — `tsc` + copy CSS to `dist/`
 - `pnpm typecheck` — `tsc --noEmit`
 
-`dist/` is **not tracked**. It was committed until every consumer moved off
-`github:rtorcato/shared-docs` — that path has no build step, so it needed prebuilt
-output in the tree. `files: ["dist"]` + `prepack` cover publishing. Don't re-add it.
+The tests import `dist/`, which is **not tracked**. You rarely have to think about
+that: `prepare` runs `pnpm build` on install, so a fresh clone has `dist/` as soon as
+`pnpm install` finishes. Run `pnpm build` by hand only after editing `src/`.
+
+`dist/` used to be committed because `github:rtorcato/shared-docs` consumers get no
+build step — and they get none because the script was `prepack`, which npm skips for
+git installs. `prepare` is the one lifecycle hook that runs on *all three* of publish,
+git install, and local install, so switching to it gave those consumers their build
+back and let the tracked copy go (#43). **Don't rename it back, and don't re-add
+`dist/` to git.** `files: ["dist"]` + `prepare` cover publishing.
 
 ## Stack
 
