@@ -95,4 +95,13 @@ export const FAMILY: FamilyMember[] = [
 		dest: 'Docs',
 		accent: '#10b981',
 	},
+	{
+		// Not @rtorcato-scoped, so `label()` renders the name as-is — intentional.
+		// No docs site yet (rtorcato.github.io/infra-x 404s) — point at GitHub until Pages ships.
+		name: 'infra-x',
+		tagline: 'JSX as the deployment language — runtime and reference component libraries.',
+		href: 'https://github.com/rtorcato/infra-x',
+		dest: 'GitHub',
+		accent: '#2dd4bf',
+	},
 ]
