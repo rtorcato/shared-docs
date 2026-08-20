@@ -88,17 +88,15 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#22d3ee',
 	},
 	{
-		// Not @rtorcato-scoped, so `label()` renders the name as-is — intentional.
-		name: 'db-x',
+		name: '@rtorcato/db-x',
 		tagline: 'Production-grade database schema deployment with the ergonomics of a JSX component.',
 		href: 'https://rtorcato.github.io/db-x/',
 		dest: 'Docs',
 		accent: '#10b981',
 	},
 	{
-		// Not @rtorcato-scoped, so `label()` renders the name as-is — intentional.
 		// No docs site yet (rtorcato.github.io/infra-x 404s) — point at GitHub until Pages ships.
-		name: 'infra-x',
+		name: '@rtorcato/infra-x',
 		tagline: 'JSX as the deployment language — runtime and reference component libraries.',
 		href: 'https://github.com/rtorcato/infra-x',
 		dest: 'GitHub',
