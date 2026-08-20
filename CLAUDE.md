@@ -56,7 +56,10 @@ Two traps in the API, both intentional:
 
 - `siblings(selfName)` returns the **full list unchanged** for a name not in `FAMILY`,
   so a typo makes a site render itself in its own sibling grid.
-- `label()` only strips `@rtorcato/`, so a non-scoped member (`db-x`) renders as-is.
+- `label()` only strips `@rtorcato/`, so a non-scoped member would render as-is —
+  every entry is scoped for that reason, even where npm has no such package
+  (`@rtorcato/db-x`, `@rtorcato/infra-x`). `name` is a display identity and the
+  `siblings()` self-match key, never an install coordinate.
 
 See `README.md` for the public API.
 
