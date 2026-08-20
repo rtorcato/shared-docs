@@ -5,19 +5,15 @@ builders and Docusaurus components, for the `@rtorcato/*` docs sites. `src/famil
 is the single source of truth for the family every sibling site renders in its nav,
 footer, and landing grid.
 
-## Golden rule
-
-`dist/` is **committed on purpose** (see `.gitignore`) so the remaining git-dep
-consumers install prebuilt output with no build step. **After any change to `src/`,
-run `pnpm build` and commit the updated `dist/`.** CI fails if `dist/` drifts.
-
-This is temporary: the package is npm-first now, and `dist/` comes out of git once
-the last git-dep consumer has migrated (#8).
-
 ## Commands
 
-- `pnpm build` — `tsc` + copy CSS to `dist/` (run before every commit that touches `src/`)
+- `pnpm build` — `tsc` + copy CSS to `dist/`. Run it before `pnpm test`: the tests
+  import `dist/`, and it's no longer in the tree for you.
 - `pnpm typecheck` — `tsc --noEmit`
+
+`dist/` is **not tracked**. It was committed until every consumer moved off
+`github:rtorcato/shared-docs` — that path has no build step, so it needed prebuilt
+output in the tree. `files: ["dist"]` + `prepack` cover publishing. Don't re-add it.
 
 ## Stack
 
@@ -48,9 +44,9 @@ If those two ever disagree, a release failed silently — that has happened befo
 
 ## Editing the family
 
-Edit `src/family.ts`, `pnpm build`, commit both `src/` and `dist/`, and use a `feat:`
-commit so a release actually goes out. Verify new `href`s resolve — #7 exists because
-four entries drifted to dead links and nothing noticed.
+Edit `src/family.ts` and use a `feat:` commit so a release actually goes out.
+Verify new `href`s resolve — #7 exists because four entries drifted to dead links
+and nothing noticed.
 
 Two traps in the API, both intentional:
 
