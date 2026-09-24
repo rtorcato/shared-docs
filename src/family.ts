@@ -102,12 +102,13 @@ export const FAMILY: FamilyMember[] = [
 		dest: 'Docs',
 		accent: '#10b981',
 	},
-	{
-		// No docs site yet (rtorcato.github.io/infra-x 404s) — point at GitHub until Pages ships.
-		name: '@rtorcato/infra-x',
-		tagline: 'JSX as the deployment language — runtime and reference component libraries.',
-		href: 'https://github.com/rtorcato/infra-x',
-		dest: 'GitHub',
-		accent: '#2dd4bf',
-	},
+	// infra-x moved to the private `infrazero` org, so every public link to it 404s.
+	// Restore this entry (with its new home) if it goes public again.
+	// {
+	// 	name: '@rtorcato/infra-x',
+	// 	tagline: 'JSX as the deployment language — runtime and reference component libraries.',
+	// 	href: 'https://github.com/rtorcato/infra-x',
+	// 	dest: 'GitHub',
+	// 	accent: '#2dd4bf',
+	// },
 ]
