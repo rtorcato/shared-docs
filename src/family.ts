@@ -88,12 +88,11 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#22d3ee',
 	},
 	{
-		// No docs site yet (rtorcato.github.io/repo-ai 404s) — point at GitHub until Pages ships.
 		name: '@rtorcato/repo-ai',
 		tagline:
 			'Turns ai-ready GitHub issues into reviewed PRs — one worktree per issue, two agent reviewers.',
-		href: 'https://github.com/rtorcato/repo-ai',
-		dest: 'GitHub',
+		href: 'https://rtorcato.github.io/repo-ai/',
+		dest: 'Docs',
 		accent: '#f472b6',
 	},
 	{
