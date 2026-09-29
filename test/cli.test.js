@@ -76,6 +76,15 @@ test('brand writes the SVG sources', () => {
 	assert.match(banner, /Short tagline/)
 })
 
+test('brand after init syncs the favicon into apps/docs', () => {
+	const dir = repo()
+	run(dir, 'init')
+	const { written } = JSON.parse(run(dir, 'brand', '--json').stdout)
+	assert.ok(written.includes('apps/docs/static/img/favicon.svg'))
+	const { checks } = JSON.parse(run(dir, 'doctor', '--json').stdout)
+	assert.equal(checks.find((c) => c.check === 'apps/docs/static/img/favicon.svg')?.status, 'ok')
+})
+
 test('a bad --accent is rejected', () => {
 	assert.equal(run(repo(), 'init', '--accent', 'red').status, 1)
 })
