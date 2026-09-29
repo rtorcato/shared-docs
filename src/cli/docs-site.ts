@@ -351,6 +351,13 @@ more markdown files under \`apps/docs/docs/\` — they appear in the sidebar
 automatically.
 `
 
+/**
+ * The repo-tooling release the generated docs workflow pins (#65). repo-tooling has
+ * no moving major tag, so this is an exact release; bump it here, and `doctor`
+ * warns every site still on another ref. `init --update` never rewrites docs.yml.
+ */
+export const REPO_TOOLING_REF = 'v5.0.0'
+
 /** Drives the shared reusable deploy on push to main. */
 const docsWorkflow = (meta: SiteMeta): string => `name: 📚 Docs
 on:
@@ -375,7 +382,7 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    uses: rtorcato/repo-tooling/.github/workflows/docs-deploy.yml@main
+    uses: rtorcato/repo-tooling/.github/workflows/docs-deploy.yml@${REPO_TOOLING_REF}
     with:
       build-filter: '${meta.docsPkgName}'
 `

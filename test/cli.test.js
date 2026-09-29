@@ -39,6 +39,20 @@ test('doctor passes after init and fails on drift; --json is parseable', () => {
 	assert.ok(JSON.parse(bad.stdout).checks.some((c) => c.status === 'fail'))
 })
 
+test('docs.yml pins repo-tooling; doctor warns on @main and --update leaves it', () => {
+	const dir = repo()
+	run(dir, 'init')
+	const wf = join(dir, '.github/workflows/docs.yml')
+	assert.match(readFileSync(wf, 'utf8'), /docs-deploy\.yml@v\d+\.\d+\.\d+\n/)
+	const pin = (c) => c.check.startsWith('.github/workflows/docs.yml pins')
+	assert.equal(JSON.parse(run(dir, 'doctor', '--json').stdout).checks.find(pin).status, 'ok')
+	const unpinned = readFileSync(wf, 'utf8').replace(/docs-deploy\.yml@\S+/, 'docs-deploy.yml@main')
+	writeFileSync(wf, unpinned)
+	assert.equal(JSON.parse(run(dir, 'doctor', '--json').stdout).checks.find(pin).status, 'warn')
+	run(dir, 'init', '--update')
+	assert.equal(readFileSync(wf, 'utf8'), unpinned)
+})
+
 test('init --update replaces a drifted shipped asset but not the config', () => {
 	const dir = repo()
 	run(dir, 'init')
