@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { DOCS_ASSETS } from './brand.js'
-import { ASSETS, DOCS_APP, SCAFFOLD_FILES, shippedFiles } from './docs-site.js'
+import { ASSETS, DOCS_APP, REPO_TOOLING_REF, SCAFFOLD_FILES, shippedFiles } from './docs-site.js'
 import { exists, read } from './fs.js'
 
 export interface Check {
@@ -87,6 +87,22 @@ export async function doctor(dir: string): Promise<Check[]> {
 		'docs app depends on shared-docs',
 		'add @rtorcato/shared-docs to apps/docs dependencies'
 	)
+
+	// Pinned, not @main: the reusable workflow runs with pages/id-token write (#65).
+	const workflow = '.github/workflows/docs.yml'
+	if (await exists(at(workflow))) {
+		const refs = [...(await read(at(workflow))).matchAll(/rtorcato\/repo-tooling\/\S+@(\S+)/g)]
+		const stray = refs.map((m) => m[1]).filter((ref) => ref !== REPO_TOOLING_REF)
+		out.push(
+			stray.length
+				? {
+						check: `${workflow} pins repo-tooling@${REPO_TOOLING_REF}`,
+						status: 'warn',
+						detail: `references repo-tooling at ${[...new Set(stray)].join(', ')} — pin it to @${REPO_TOOLING_REF}`,
+					}
+				: { check: `${workflow} pins repo-tooling@${REPO_TOOLING_REF}`, status: 'ok' }
+		)
+	}
 
 	const tsconfig = at(`${DOCS_APP}/tsconfig.json`)
 	if (await exists(tsconfig)) {
