@@ -23,6 +23,9 @@
 	"sideEffects": [
 		"**/*.css"
 	],
+	"bin": {
+		"shared-docs": "./dist/cli/index.js"
+	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"exports": {
@@ -50,7 +53,8 @@
 		"./package.json": "./package.json"
 	},
 	"files": [
-		"dist"
+		"dist",
+		"assets"
 	],
 	"scripts": {
 		"build": "tsc -p tsconfig.json && node scripts/copy-css.mjs",
@@ -70,6 +74,7 @@
 		"@arethetypeswrong/cli": "^0.18.5",
 		"@biomejs/biome": "^2.5.7",
 		"@rtorcato/repo-tooling": "^3.1.0",
+		"@types/node": "^22.0.0",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"publint": "^0.3.23",

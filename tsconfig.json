@@ -19,7 +19,7 @@
 		"sourceMap": false,
 		// The preset lists "vitest"; this package tests with node:test, so naming
 		// it fails with TS2688 (cannot find type definition file).
-		"types": ["react", "react-dom"],
+		"types": ["react", "react-dom", "node"],
 		// CSS modules are declared with an index signature (src/shims.d.ts), which
 		// is exactly what this rule flags — it would turn every `styles.card` into
 		// `styles['card']` for no safety gain, since the keys aren't known either way.

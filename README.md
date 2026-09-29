@@ -97,3 +97,20 @@ publishes nothing, so the change never reaches consumers. Sites then pick it up 
 This repo's components consume `--ifm-*`/`--jt-*` colour tokens; `repo-tooling`'s
 `tooling/docusaurus/` owns the theme that defines them. See "Boundary with
 repo-tooling" in `CLAUDE.md` before adding CSS.
+
+## CLI
+
+`shared-docs` scaffolds a Docusaurus docs site wired to this package. It has no
+runtime dependencies (node built-ins only) and never prompts.
+
+```sh
+npx @rtorcato/shared-docs init      # apps/docs: theme, tokens, Projects dropdown, family footer,
+                                    # landing page with <Siblings>, mobile drawer, TS 7-ready tsconfig
+npx @rtorcato/shared-docs brand     # brand/ SVG sources + render.sh; renders PNGs if rsvg-convert exists
+npx @rtorcato/shared-docs doctor    # report drift from the scaffold (exit 1 on failures)
+```
+
+Options: `--dir`, `--tagline`, `--accent` / `--accent-dark` (hex), `--typedoc`,
+`--helpers`, `--json`, `--yes` (accepted for parity; nothing prompts). Tagline and
+accent default to the package's `FAMILY` entry, then `package.json`. Files are
+only written when missing, so re-running never overwrites hand edits.
