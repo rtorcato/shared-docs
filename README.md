@@ -111,6 +111,9 @@ npx @rtorcato/shared-docs doctor    # report drift from the scaffold (exit 1 on 
 ```
 
 Options: `--dir`, `--tagline`, `--accent` / `--accent-dark` (hex), `--typedoc`,
-`--helpers`, `--json`, `--yes` (accepted for parity; nothing prompts). Tagline and
-accent default to the package's `FAMILY` entry, then `package.json`. Files are
-only written when missing, so re-running never overwrites hand edits.
+`--helpers`, `--update`, `--json`, `--yes` (accepted for parity; nothing prompts).
+Tagline and accent default to the package's `FAMILY` entry, then `package.json`.
+Files are only written when missing, so re-running never overwrites hand edits.
+`init --update` is the exception: it replaces the shipped verbatim assets
+(`theme.css`, `_jt-tokens.css`, `scripts/*.mjs`) that `doctor` flags as drifted,
+and still never touches the generated config, pages or other editable files.

@@ -24,6 +24,8 @@ export interface DocsSiteOptions {
 	typedoc?: boolean
 	/** Also write scripts/docs-helpers.mjs (markdown-table escaping, export parser). */
 	helpers?: boolean
+	/** Overwrite drifted shipped assets (theme, tokens, scripts) — never the generated config/pages. */
+	update?: boolean
 }
 
 interface SiteMeta {
@@ -594,6 +596,7 @@ export const shippedFiles = (o: DocsSiteOptions): Array<[asset: string, target: 
 /**
  * Scaffold the Docusaurus docs site wired to this package. Writes each file only
  * when missing and returns the paths actually written, so it is safe to re-run.
+ * With `update`, drifted shipped assets are replaced too (and reported as written).
  */
 export async function generateDocsSite(
 	pkg: Pkg,
@@ -608,7 +611,14 @@ export async function generateDocsSite(
 	const written: string[] = []
 
 	for (const [asset, target] of shippedFiles({ ...options, typedoc: modules.length > 0 })) {
-		const w = await writeIfMissing(dir, target, await readFile(new URL(asset, ASSETS)))
+		const contents = await readFile(new URL(asset, ASSETS))
+		const file = path.join(dir, target)
+		if (options.update && (await exists(file)) && !contents.equals(await readFile(file))) {
+			await writeFile(file, contents)
+			written.push(target)
+			continue
+		}
+		const w = await writeIfMissing(dir, target, contents)
 		if (w) written.push(w)
 	}
 

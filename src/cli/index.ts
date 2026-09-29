@@ -23,6 +23,7 @@ Options:
   --accent-dark <hex>   Accent colour, dark mode (default: --accent)
   --typedoc             init: wire TypeDoc API pages for single-segment subpath exports
   --helpers             init: also write scripts/docs-helpers.mjs
+  --update              init: replace drifted shipped assets (theme, tokens, scripts); never config or pages
   --json                Machine-readable output on stdout
   --yes, -y             Accepted for parity with repo-tooling; the CLI never prompts
   -h, --help
@@ -40,6 +41,7 @@ async function main(): Promise<number> {
 			'accent-dark': { type: 'string' },
 			typedoc: { type: 'boolean' },
 			helpers: { type: 'boolean' },
+			update: { type: 'boolean' },
 			json: { type: 'boolean' },
 			yes: { type: 'boolean', short: 'y' },
 			help: { type: 'boolean', short: 'h' },
@@ -79,6 +81,7 @@ async function main(): Promise<number> {
 			tagline: values.tagline,
 			typedoc: values.typedoc,
 			helpers: values.helpers,
+			update: values.update,
 		})
 		report(
 			{ ok: true, written },

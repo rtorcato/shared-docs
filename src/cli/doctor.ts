@@ -39,7 +39,7 @@ export async function doctor(dir: string): Promise<Check[]> {
 			out.push({
 				check: `${target} matches shipped`,
 				status: 'warn',
-				detail: 'differs from this version of shared-docs',
+				detail: 'differs from this version of shared-docs — `shared-docs init --update` replaces it',
 			})
 	}
 

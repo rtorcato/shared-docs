@@ -39,6 +39,21 @@ test('doctor passes after init and fails on drift; --json is parseable', () => {
 	assert.ok(JSON.parse(bad.stdout).checks.some((c) => c.status === 'fail'))
 })
 
+test('init --update replaces a drifted shipped asset but not the config', () => {
+	const dir = repo()
+	run(dir, 'init')
+	const theme = join(dir, 'apps/docs/src/css/theme.css')
+	const cfg = join(dir, 'apps/docs/docusaurus.config.ts')
+	const shipped = readFileSync(theme, 'utf8')
+	writeFileSync(theme, '/* drifted */\n')
+	writeFileSync(cfg, 'export default {}\n')
+	assert.deepEqual(JSON.parse(run(dir, 'init', '--json').stdout).written, [])
+	const { written } = JSON.parse(run(dir, 'init', '--update', '--json').stdout)
+	assert.deepEqual(written, ['apps/docs/src/css/theme.css'])
+	assert.equal(readFileSync(theme, 'utf8'), shipped)
+	assert.equal(readFileSync(cfg, 'utf8'), 'export default {}\n')
+})
+
 test('brand writes the SVG sources', () => {
 	const dir = repo()
 	run(dir, 'brand', '--tagline', 'Short tagline', '--accent', '#e879f9')
