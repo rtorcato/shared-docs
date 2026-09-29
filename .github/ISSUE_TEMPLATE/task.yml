@@ -1,0 +1,18 @@
+name: Task
+description: A scoped task, suitable for the ai-loop
+labels: [documentation]
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: What needs doing?
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: A checklist an implementer and reviewer can verify.
+      placeholder: "- [ ] ..."
+    validations:
+      required: true
