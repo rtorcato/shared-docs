@@ -102,6 +102,14 @@ export const FAMILY: FamilyMember[] = [
 		dest: 'Docs',
 		accent: '#10b981',
 	},
+	{
+		name: '@rtorcato/brand-kit',
+		tagline:
+			'Banner, social card and favicon for a repo — SVG sources you can regenerate, rendered to PNG.',
+		href: 'https://github.com/rtorcato/brand-kit',
+		dest: 'GitHub',
+		accent: '#a3e635',
+	},
 	// infra-x moved to the private `infrazero` org, so every public link to it 404s.
 	// Restore this entry (with its new home) if it goes public again.
 	// {

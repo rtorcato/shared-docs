@@ -1,7 +1,7 @@
 // End-to-end: run the built CLI against a throwaway repo.
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { test } from 'node:test'
@@ -68,21 +68,31 @@ test('init --update replaces a drifted shipped asset but not the config', () => 
 	assert.equal(readFileSync(cfg, 'utf8'), 'export default {}\n')
 })
 
-test('brand writes the SVG sources', () => {
+test('brand is a deprecated alias that points at brand-kit and exits 0', () => {
 	const dir = repo()
-	run(dir, 'brand', '--tagline', 'Short tagline', '--accent', '#e879f9')
-	const banner = readFileSync(join(dir, 'brand/banner.svg'), 'utf8')
-	assert.match(banner, /#e879f9/)
-	assert.match(banner, /Short tagline/)
+	const r = run(dir, 'brand')
+	assert.equal(r.status, 0)
+	assert.match(r.stderr, /npx @rtorcato\/brand-kit/)
 })
 
-test('brand after init syncs the favicon into apps/docs', () => {
+test('init copies brand-kit output into apps/docs, and doctor checks it', () => {
 	const dir = repo()
-	run(dir, 'init')
-	const { written } = JSON.parse(run(dir, 'brand', '--json').stdout)
+	mkdirSync(join(dir, 'brand'))
+	writeFileSync(join(dir, 'brand/favicon.svg'), '<svg/>')
+	const { written } = JSON.parse(run(dir, 'init', '--json').stdout)
 	assert.ok(written.includes('apps/docs/static/img/favicon.svg'))
 	const { checks } = JSON.parse(run(dir, 'doctor', '--json').stdout)
 	assert.equal(checks.find((c) => c.check === 'apps/docs/static/img/favicon.svg')?.status, 'ok')
+	assert.ok(!checks.some((c) => c.check.startsWith('brand/')))
+})
+
+test('doctor skips the docs checks when apps/docs is absent', () => {
+	const r = run(repo(), 'doctor', '--json')
+	assert.equal(r.status, 0)
+	assert.deepEqual(
+		JSON.parse(r.stdout).checks.map((c) => c.status),
+		['warn']
+	)
 })
 
 test('a bad --accent is rejected', () => {
