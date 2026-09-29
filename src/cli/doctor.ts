@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { DOCS_ASSETS } from './brand.js'
 import { ASSETS, DOCS_APP, SCAFFOLD_FILES, shippedFiles } from './docs-site.js'
 import { exists, read } from './fs.js'
 
@@ -109,6 +110,22 @@ export async function doctor(dir: string): Promise<Check[]> {
 				? { check: `brand/${f}`, status: 'ok' }
 				: { check: `brand/${f}`, status: 'warn', detail: 'missing — run `shared-docs brand`' }
 		)
+	}
+
+	// The config points at these; brand/ existing means they should have been synced in.
+	if ((await exists(at('brand'))) && (await exists(at(DOCS_APP)))) {
+		for (const f of DOCS_ASSETS) {
+			const rel = `${DOCS_APP}/static/img/${f}`
+			out.push(
+				(await exists(at(rel)))
+					? { check: rel, status: 'ok' }
+					: {
+							check: rel,
+							status: 'warn',
+							detail: 'missing — run `shared-docs brand` (PNG/ICO need rsvg-convert)',
+						}
+			)
+		}
 	}
 	return out
 }

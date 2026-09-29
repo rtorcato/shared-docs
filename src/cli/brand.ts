@@ -456,7 +456,7 @@ export async function renderBrand(targetDir: string): Promise<string[] | null> {
 }
 
 /** brand/ file → docs-site static/img file. The ico and card PNG exist only once rendered. */
-const DOCS_ASSETS = ['favicon.svg', 'favicon.ico', 'social-card.png']
+export const DOCS_ASSETS = ['favicon.svg', 'favicon.ico', 'social-card.png']
 
 /**
  * Copy the brand favicon and social card into the docs site's `static/img`
