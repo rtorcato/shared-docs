@@ -2,23 +2,22 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parseArgs } from 'node:util'
-import { addReadmeBanner, generateBrand, renderBrand, syncBrandToDocs } from './brand.js'
 import { doctor } from './doctor.js'
 import { generateDocsSite } from './docs-site.js'
 import { exists } from './fs.js'
 
-const HELP = `shared-docs — scaffold the @rtorcato family docs site and brand assets
+const HELP = `shared-docs — scaffold the @rtorcato family docs site
 
 Usage: shared-docs <command> [options]
 
 Commands:
   init     Scaffold apps/docs (theme, Projects dropdown, family footer, landing page, mobile drawer)
-  brand    Write brand/ SVG sources + render.sh, render PNGs when rsvg-convert is installed
+  brand    Deprecated — brand assets moved to \`npx @rtorcato/brand-kit\`
   doctor   Report drift from the scaffold (exit 1 on failures)
 
 Options:
   --dir <path>          Target repo (default: cwd)
-  --tagline <text>      Site/banner tagline (default: family entry, else package.json description)
+  --tagline <text>      Site tagline (default: family entry, else package.json description)
   --accent <hex>        Accent colour, light mode (default: family entry, else Docusaurus green)
   --accent-dark <hex>   Accent colour, dark mode (default: --accent)
   --typedoc             init: wire TypeDoc API pages for single-segment subpath exports
@@ -92,24 +91,11 @@ async function main(): Promise<number> {
 		return 0
 	}
 	if (command === 'brand') {
-		const written = await generateBrand(pkg, dir, {
-			tagline: values.tagline,
-			accent: values.accent,
-		})
-		const rendered = (await renderBrand(dir)) ?? []
-		const banner = await addReadmeBanner(
-			dir,
-			typeof pkg?.name === 'string' ? (pkg.name.split('/').pop() ?? pkg.name) : path.basename(dir)
-		)
-		// init only syncs what brand/ held at the time; brand run after init must copy them over too (#63).
-		const synced = await syncBrandToDocs(dir)
-		const all = [...written, ...rendered, ...synced, ...(banner ? [banner] : [])]
-		report(
-			{ ok: true, written: all },
-			all.length
-				? `wrote:\n${all.map((f) => `  ${f}`).join('\n')}`
-				: 'nothing to write — brand/ is up to date'
-		)
+		// ponytail: deprecated alias, exits 0 so scripts don't break; remove in the next major.
+		const hint =
+			'shared-docs brand is deprecated — run `npx @rtorcato/brand-kit`, then `shared-docs init` to copy the assets into apps/docs'
+		if (values.json) report({ ok: true, deprecated: true, written: [], hint }, hint)
+		else console.error(hint)
 		return 0
 	}
 	if (command === 'doctor') {

@@ -10,18 +10,21 @@ export interface Check {
 	detail?: string
 }
 
-const BRAND_FILES = [
-	'favicon.svg',
-	'banner.svg',
-	'banner-mobile.svg',
-	'social-card.svg',
-	'render.sh',
-]
-
-/** Report drift from what `init` and `brand` scaffold. Read-only. */
+/** Report drift from what `init` scaffolds. Read-only. `brand/` itself is brand-kit's `doctor`'s job. */
 export async function doctor(dir: string): Promise<Check[]> {
 	const out: Check[] = []
 	const at = (rel: string) => path.join(dir, rel)
+
+	// No docs site means init never ran here — skip rather than fail every check.
+	if (!(await exists(at(DOCS_APP)))) {
+		return [
+			{
+				check: DOCS_APP,
+				status: 'warn',
+				detail: 'not found — docs checks skipped; run `shared-docs init`',
+			},
+		]
+	}
 
 	for (const rel of SCAFFOLD_FILES) {
 		out.push(
@@ -40,7 +43,8 @@ export async function doctor(dir: string): Promise<Check[]> {
 			out.push({
 				check: `${target} matches shipped`,
 				status: 'warn',
-				detail: 'differs from this version of shared-docs — `shared-docs init --update` replaces it',
+				detail:
+					'differs from this version of shared-docs — `shared-docs init --update` replaces it',
 			})
 	}
 
@@ -120,16 +124,8 @@ export async function doctor(dir: string): Promise<Check[]> {
 		)
 	}
 
-	for (const f of BRAND_FILES) {
-		out.push(
-			(await exists(at(`brand/${f}`)))
-				? { check: `brand/${f}`, status: 'ok' }
-				: { check: `brand/${f}`, status: 'warn', detail: 'missing — run `shared-docs brand`' }
-		)
-	}
-
 	// The config points at these; brand/ existing means they should have been synced in.
-	if ((await exists(at('brand'))) && (await exists(at(DOCS_APP)))) {
+	if (await exists(at('brand'))) {
 		for (const f of DOCS_ASSETS) {
 			const rel = `${DOCS_APP}/static/img/${f}`
 			out.push(
@@ -138,7 +134,8 @@ export async function doctor(dir: string): Promise<Check[]> {
 					: {
 							check: rel,
 							status: 'warn',
-							detail: 'missing — run `shared-docs brand` (PNG/ICO need rsvg-convert)',
+							detail:
+								'missing — render it with `npx @rtorcato/brand-kit`, then re-run `shared-docs init`',
 						}
 			)
 		}

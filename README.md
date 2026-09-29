@@ -106,9 +106,14 @@ runtime dependencies (node built-ins only) and never prompts.
 ```sh
 npx @rtorcato/shared-docs init      # apps/docs: theme, tokens, Projects dropdown, family footer,
                                     # landing page with <Siblings>, mobile drawer, TS 7-ready tsconfig
-npx @rtorcato/shared-docs brand     # brand/ SVG sources + render.sh; renders PNGs if rsvg-convert exists
 npx @rtorcato/shared-docs doctor    # report drift from the scaffold (exit 1 on failures)
 ```
+
+Brand assets (banner, social card, favicon) live in
+[`@rtorcato/brand-kit`](https://github.com/rtorcato/brand-kit): run
+`npx @rtorcato/brand-kit` to write `brand/`, then `shared-docs init` copies the
+favicon and social card into `apps/docs/static/img`. `shared-docs brand` is a
+deprecated alias that only points there.
 
 Options: `--dir`, `--tagline`, `--accent` / `--accent-dark` (hex), `--typedoc`,
 `--helpers`, `--update`, `--json`, `--yes` (accepted for parity; nothing prompts).
