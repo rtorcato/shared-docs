@@ -2,7 +2,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { parseArgs } from 'node:util'
-import { addReadmeBanner, generateBrand, renderBrand } from './brand.js'
+import { addReadmeBanner, generateBrand, renderBrand, syncBrandToDocs } from './brand.js'
 import { doctor } from './doctor.js'
 import { generateDocsSite } from './docs-site.js'
 import { exists } from './fs.js'
@@ -101,7 +101,9 @@ async function main(): Promise<number> {
 			dir,
 			typeof pkg?.name === 'string' ? (pkg.name.split('/').pop() ?? pkg.name) : path.basename(dir)
 		)
-		const all = [...written, ...rendered, ...(banner ? [banner] : [])]
+		// init only syncs what brand/ held at the time; brand run after init must copy them over too (#63).
+		const synced = await syncBrandToDocs(dir)
+		const all = [...written, ...rendered, ...synced, ...(banner ? [banner] : [])]
 		report(
 			{ ok: true, written: all },
 			all.length
