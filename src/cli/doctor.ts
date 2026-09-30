@@ -1,7 +1,15 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { DOCS_ASSETS } from './brand.js'
-import { ASSETS, DOCS_APP, REPO_TOOLING_REF, SCAFFOLD_FILES, shippedFiles } from './docs-site.js'
+import {
+	ASSETS,
+	DOCS_APP,
+	inferSiteMeta,
+	REPO_TOOLING_REF,
+	resolveDocsSettings,
+	SCAFFOLD_FILES,
+	shippedFiles,
+} from './docs-site.js'
 import { exists, read } from './fs.js'
 
 export interface Check {
@@ -11,7 +19,11 @@ export interface Check {
 }
 
 /** Report drift from what `init` scaffolds. Read-only. `brand/` itself is brand-kit's `doctor`'s job. */
-export async function doctor(dir: string): Promise<Check[]> {
+export async function doctor(
+	dir: string,
+	pkg: Record<string, unknown> | null = null,
+	flags: { url?: string; deploy?: string } = {}
+): Promise<Check[]> {
 	const out: Check[] = []
 	const at = (rel: string) => path.join(dir, rel)
 
@@ -91,6 +103,46 @@ export async function doctor(dir: string): Promise<Check[]> {
 		'docs app depends on shared-docs',
 		'add @rtorcato/shared-docs to apps/docs dependencies'
 	)
+
+	// url/baseUrl and the workflow follow config.docs (or --url/--deploy, or the GitHub Pages default).
+	const meta = inferSiteMeta(pkg, dir)
+	const site = await resolveDocsSettings(dir, meta.owner, meta.repo, flags)
+	if (await exists(at(cfg))) {
+		const text = await read(at(cfg))
+		const url = text.match(/^\s*url:\s*(['"])(.*?)\1/m)?.[2]
+		const baseUrl = text.match(/^\s*baseUrl:\s*(['"])(.*?)\1/m)?.[2]
+		out.push(
+			url === site.origin && baseUrl === site.baseUrl
+				? { check: 'config url/baseUrl match docs settings', status: 'ok' }
+				: {
+						check: 'config url/baseUrl match docs settings',
+						status: 'fail',
+						detail: `${cfg} has ${url}${baseUrl}, expected ${site.origin}${site.baseUrl}`,
+					}
+		)
+	}
+	{
+		const wf = '.github/workflows/docs.yml'
+		const has = await exists(at(wf))
+		const uses = has
+			? (await read(at(wf))).match(/rtorcato\/repo-tooling\/\S*?(docs-deploy[\w-]*)\.yml@/)?.[1]
+			: undefined
+		const want = { github: 'docs-deploy', cloudflare: 'docs-deploy-cloudflare', none: undefined }[
+			site.deploy
+		]
+		const check = `${wf} matches deploy: ${site.deploy}`
+		out.push(
+			uses === want || (!want && !has)
+				? { check, status: 'ok' }
+				: {
+						check,
+						status: 'fail',
+						detail: want
+							? `${has ? `calls ${uses ?? 'no repo-tooling workflow'}` : 'missing'}, expected ${want}.yml`
+							: 'deploy is none but a docs workflow exists',
+					}
+		)
+	}
 
 	// Pinned, not @main: the reusable workflow runs with pages/id-token write (#65).
 	const workflow = '.github/workflows/docs.yml'

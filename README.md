@@ -109,6 +109,15 @@ npx @rtorcato/shared-docs init      # apps/docs: theme, tokens, Projects dropdow
 npx @rtorcato/shared-docs doctor    # report drift from the scaffold (exit 1 on failures)
 ```
 
+The site URL and deploy target come from `.repo-tooling.json`
+`record.config.docs.{url, deploy}` when present (the CLI only reads it), else
+the `--url` / `--deploy` flags (which also override the file), else
+`https://<owner>.github.io/<repo>/` deployed to GitHub Pages. `deploy` is
+`github`, `cloudflare` (repo-tooling's Cloudflare reusable workflow; needs the
+`CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID` secrets) or `none` (no
+workflow). `doctor` checks the Docusaurus `url`/`baseUrl` and the workflow
+against those settings.
+
 Brand assets (banner, social card, favicon) live in
 [`@rtorcato/brand-kit`](https://github.com/rtorcato/brand-kit): run
 `npx @rtorcato/brand-kit` to write `brand/`, then `shared-docs init` copies the
