@@ -26,9 +26,63 @@ export interface DocsSiteOptions {
 	helpers?: boolean
 	/** Overwrite drifted shipped assets (theme, tokens, scripts) — never the generated config/pages. */
 	update?: boolean
+	/** Site URL / deploy target: overrides `.repo-tooling.json` `config.docs`, which overrides the GitHub Pages default. */
+	url?: string
+	deploy?: string
 }
 
-interface SiteMeta {
+export const DEPLOY_TARGETS = ['github', 'cloudflare', 'none'] as const
+export type DeployTarget = (typeof DEPLOY_TARGETS)[number]
+
+export interface DocsSettings {
+	/** Origin, e.g. `https://docs.example.com`. */
+	origin: string
+	/** Path with leading and trailing slash, e.g. `/my-repo/`. */
+	baseUrl: string
+	deploy: DeployTarget
+}
+
+/**
+ * Where the site lives and how it deploys: flags, else repo-tooling's
+ * `.repo-tooling.json` `record.config.docs`, else GitHub Pages. Read-only — the
+ * CLI never writes that file. Throws on an invalid url/deploy.
+ */
+export async function resolveDocsSettings(
+	dir: string,
+	owner: string,
+	repo: string,
+	flags: { url?: string; deploy?: string } = {}
+): Promise<DocsSettings> {
+	let fromFile: { url?: unknown; deploy?: unknown } = {}
+	const lock = path.join(dir, '.repo-tooling.json')
+	if (await exists(lock)) {
+		try {
+			fromFile = JSON.parse(await read(lock))?.record?.config?.docs ?? {}
+		} catch {
+			throw new Error('.repo-tooling.json is not valid JSON')
+		}
+	}
+	const url = flags.url ?? fromFile.url ?? `https://${owner}.github.io/${repo}/`
+	const deploy = flags.deploy ?? fromFile.deploy ?? 'github'
+	if (!DEPLOY_TARGETS.includes(deploy as DeployTarget))
+		throw new Error(
+			`docs deploy must be one of ${DEPLOY_TARGETS.join(', ')} (got ${String(deploy)})`
+		)
+	let parsed: URL
+	try {
+		parsed = new URL(String(url))
+		if (!/^https?:$/.test(parsed.protocol)) throw new Error()
+	} catch {
+		throw new Error(`docs url must be an absolute http(s) URL (got ${String(url)})`)
+	}
+	return {
+		origin: parsed.origin,
+		baseUrl: `${parsed.pathname.replace(/\/+$/, '')}/`,
+		deploy: deploy as DeployTarget,
+	}
+}
+
+export interface SiteMeta {
 	pkgName: string
 	docsPkgName: string
 	title: string
@@ -37,7 +91,7 @@ interface SiteMeta {
 	repo: string
 }
 
-function inferSiteMeta(pkg: Pkg, dir: string, tagline?: string): SiteMeta {
+export function inferSiteMeta(pkg: Pkg, dir: string, tagline?: string): SiteMeta {
 	const pkgName = typeof pkg?.name === 'string' ? pkg.name : `@rtorcato/${path.basename(dir)}`
 	const repoUrl =
 		typeof pkg?.repository === 'string'
@@ -73,7 +127,12 @@ function jsString(value: string): string {
 	return `'${JSON.stringify(value).slice(1, -1).replaceAll('\\"', '"').replaceAll("'", "\\'")}'`
 }
 
-function docusaurusConfig(meta: SiteMeta, modules: string[], hasLogo: boolean): string {
+function docusaurusConfig(
+	meta: SiteMeta,
+	site: DocsSettings,
+	modules: string[],
+	hasLogo: boolean
+): string {
 	const ghUrl = `https://github.com/${meta.owner}/${meta.repo}`
 	const typedocImport = modules.length
 		? "// @ts-expect-error -- plain .mjs helper written by `shared-docs init --typedoc`\nimport { getTypedocPlugins } from '../../scripts/typedoc.mjs'\n"
@@ -91,8 +150,8 @@ const config: Config = {
 \ttagline: ${jsString(meta.tagline)},
 \tfavicon: 'img/favicon.ico',
 
-\turl: 'https://${meta.owner}.github.io',
-\tbaseUrl: '/${meta.repo}/',
+\turl: ${jsString(site.origin)},
+\tbaseUrl: ${jsString(site.baseUrl)},
 
 \torganizationName: '${meta.owner}',
 \tprojectName: '${meta.repo}',
@@ -358,8 +417,7 @@ automatically.
  */
 export const REPO_TOOLING_REF = 'v5.1.4'
 
-/** Drives the shared reusable deploy on push to main. */
-const docsWorkflow = (meta: SiteMeta): string => `name: 📚 Docs
+const WORKFLOW_HEAD = `name: 📚 Docs
 on:
   push:
     branches: [main]
@@ -378,7 +436,13 @@ on:
 jobs:
   docs:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
-    permissions:
+`
+
+/** Drives the shared reusable deploy on push to main; null for `deploy: none`. */
+export function docsWorkflow(meta: SiteMeta, site: DocsSettings): string | null {
+	if (site.deploy === 'none') return null
+	if (site.deploy === 'github')
+		return `${WORKFLOW_HEAD}    permissions:
       contents: read
       pages: write
       id-token: write
@@ -386,6 +450,20 @@ jobs:
     with:
       build-filter: '${meta.docsPkgName}'
 `
+	const { host } = new URL(site.origin)
+	return `${WORKFLOW_HEAD}    permissions:
+      contents: read
+    uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@${REPO_TOOLING_REF}
+    with:
+      build-filter: '${meta.docsPkgName}'
+      worker-name: '${meta.repo}-docs'
+      base-path: '${site.baseUrl}'
+      route: '${host}${site.baseUrl}*'
+    secrets:
+      CLOUDFLARE_API_TOKEN: \${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: \${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+`
+}
 
 // routeBasePath is '/docs', so without a page of its own the site root — and the
 // navbar logo — would 404. Tabs/no semicolons to match the Biome preset.
@@ -611,6 +689,7 @@ export async function generateDocsSite(
 	options: DocsSiteOptions = {}
 ): Promise<string[]> {
 	const meta = inferSiteMeta(pkg, dir, options.tagline)
+	const site = await resolveDocsSettings(dir, meta.owner, meta.repo, options)
 	const member = familyEntry(meta.pkgName)
 	const accent =
 		options.accent ?? (member ? { light: member.accent, dark: member.accent } : DEFAULT_ACCENT)
@@ -635,7 +714,7 @@ export async function generateDocsSite(
 		[`${DOCS_APP}/package.json`, docsPackageJson(meta, modules.length > 0)],
 		[
 			`${DOCS_APP}/docusaurus.config.ts`,
-			docusaurusConfig(meta, modules, await exists(path.join(dir, 'brand', 'favicon.svg'))),
+			docusaurusConfig(meta, site, modules, await exists(path.join(dir, 'brand', 'favicon.svg'))),
 		],
 		[`${DOCS_APP}/sidebars.ts`, SIDEBARS],
 		[`${DOCS_APP}/tsconfig.json`, TSCONFIG],
@@ -645,8 +724,9 @@ export async function generateDocsSite(
 		[`${DOCS_APP}/src/theme/Navbar/MobileSidebar/PrimaryMenu/index.tsx`, mobilePrimaryMenu(ghUrl)],
 		[`${DOCS_APP}/src/theme/Navbar/MobileSidebar/SecondaryMenu/index.tsx`, MOBILE_SECONDARY_MENU],
 		[`${DOCS_APP}/docs/intro.md`, introDoc(meta)],
-		['.github/workflows/docs.yml', docsWorkflow(meta)],
 	]
+	const workflow = docsWorkflow(meta, site)
+	if (workflow) files.push(['.github/workflows/docs.yml', workflow])
 	files.push([
 		`${DOCS_APP}/.gitignore`,
 		`${modules.length ? '# Generated by TypeDoc on build\ndocs/api/\n\n' : ''}# Synced from releases on build\ndocs/changelog.md\n\n# Docusaurus build artifacts\nbuild/\n.docusaurus/\n`,
