@@ -1,0 +1,9 @@
+{
+	"name": "@rtorcato/docs-landing",
+	"private": true,
+	"description": "The docs.torcato.dev landing page, generated from src/family.ts.",
+	"type": "module",
+	"scripts": {
+		"build": "node build.mjs"
+	}
+}

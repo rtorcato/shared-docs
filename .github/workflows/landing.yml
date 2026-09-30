@@ -1,0 +1,29 @@
+name: Deploy docs.torcato.dev landing
+
+# The index page at https://docs.torcato.dev/, built from src/family.ts. The route
+# is the whole host; each project's own docs Worker claims a more specific
+# route (docs.torcato.dev/<repo>/*), which Cloudflare prefers, so this Worker only
+# answers the root and paths no project has deployed yet.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'landing/**'
+      - 'src/family.ts'
+      - '.github/workflows/landing.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  landing:
+    uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@main
+    with:
+      build-filter: '@rtorcato/docs-landing'
+      build-output: landing/dist
+      worker-name: docs-landing
+      route: docs.torcato.dev/*
+    secrets:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
