@@ -46,6 +46,8 @@ importers:
         specifier: ^7.0.2
         version: 7.0.2
 
+  landing: {}
+
 packages:
 
   '@actions/core@3.0.1':

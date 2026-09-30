@@ -1,3 +1,7 @@
+# landing/ is the docs.torcato.dev index page, deployed on its own (private).
+packages:
+  - landing
+
 # Family packages skip the minimum-release-age gate — they're ours, so a fresh
 # publish doesn't need to age before this repo can pick it up.
 minimumReleaseAgeExclude:
