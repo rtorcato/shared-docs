@@ -1,32 +1,40 @@
 {
-  "$schema": "https://rtorcato.github.io/repo-tooling/schemas/lockfile.json",
-  "version": 2,
-  "config": {
-    "projectName": "@rtorcato/shared-docs",
-    "language": "js",
-    "projectType": "library",
-    "typescript": {
-      "enabled": true,
-      "config": "react"
+  "$schema": "https://docs.torcato.dev/repo-tooling/schemas/lockfile.json",
+  "version": 4,
+  "record": {
+    "config": {
+      "language": "js",
+      "projectName": "@rtorcato/shared-docs",
+      "projectType": "library",
+      "typescript": {
+        "enabled": true,
+        "config": "react"
+      },
+      "linting": {
+        "tool": "biome"
+      },
+      "formatting": {
+        "tool": "biome"
+      },
+      "testing": {
+        "framework": "none",
+        "environment": "node"
+      },
+      "gitHooks": false,
+      "commitLint": false,
+      "semanticRelease": true,
+      "securityAutomation": false,
+      "bundler": "none",
+      "publint": false,
+      "badges": false
     },
-    "linting": {
-      "tool": "biome"
-    },
-    "formatting": {
-      "tool": "biome"
-    },
-    "testing": {
-      "framework": "none",
-      "environment": "node"
-    },
-    "gitHooks": false,
-    "commitLint": false,
-    "semanticRelease": true,
-    "securityAutomation": false,
-    "bundler": "none",
-    "publint": false,
-    "badges": false
+    "writtenBy": "@rtorcato/repo-tooling@5.1.4",
+    "writtenAt": "2026-09-30T15:43:43.474Z"
   },
-  "writtenBy": "@rtorcato/repo-tooling@3.2.4",
-  "writtenAt": "2026-08-08T12:54:40.024Z"
+  "rules": {
+    "mcp": {
+      "recommended": []
+    },
+    "exceptions": {}
+  }
 }
