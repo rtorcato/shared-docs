@@ -23,6 +23,8 @@ Options:
   --typedoc             init: wire TypeDoc API pages for single-segment subpath exports
   --helpers             init: also write scripts/docs-helpers.mjs
   --update              init: replace drifted shipped assets (theme, tokens, scripts); never config or pages
+  --url <url>           Site URL (default: .repo-tooling.json config.docs.url, else https://<owner>.github.io/<repo>/)
+  --deploy <target>     github | cloudflare | none (default: config.docs.deploy, else github)
   --json                Machine-readable output on stdout
   --yes, -y             Accepted for parity with repo-tooling; the CLI never prompts
   -h, --help
@@ -41,6 +43,8 @@ async function main(): Promise<number> {
 			typedoc: { type: 'boolean' },
 			helpers: { type: 'boolean' },
 			update: { type: 'boolean' },
+			url: { type: 'string' },
+			deploy: { type: 'string' },
 			json: { type: 'boolean' },
 			yes: { type: 'boolean', short: 'y' },
 			help: { type: 'boolean', short: 'h' },
@@ -81,6 +85,8 @@ async function main(): Promise<number> {
 			typedoc: values.typedoc,
 			helpers: values.helpers,
 			update: values.update,
+			url: values.url,
+			deploy: values.deploy,
 		})
 		report(
 			{ ok: true, written },
@@ -99,7 +105,7 @@ async function main(): Promise<number> {
 		return 0
 	}
 	if (command === 'doctor') {
-		const checks = await doctor(dir)
+		const checks = await doctor(dir, pkg, { url: values.url, deploy: values.deploy })
 		const failed = checks.filter((c) => c.status === 'fail').length
 		report(
 			{ ok: failed === 0, checks },

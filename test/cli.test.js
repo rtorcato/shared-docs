@@ -98,3 +98,30 @@ test('doctor skips the docs checks when apps/docs is absent', () => {
 test('a bad --accent is rejected', () => {
 	assert.equal(run(repo(), 'init', '--accent', 'red').status, 1)
 })
+
+test('init reads config.docs from .repo-tooling.json; flags override; doctor follows', () => {
+	const dir = repo()
+	writeFileSync(
+		join(dir, '.repo-tooling.json'),
+		JSON.stringify({
+			record: { config: { docs: { url: 'https://docs.example.com/x/', deploy: 'cloudflare' } } },
+		})
+	)
+	run(dir, 'init')
+	const cfg = readFileSync(join(dir, 'apps/docs/docusaurus.config.ts'), 'utf8')
+	assert.match(cfg, /url: 'https:\/\/docs\.example\.com'/)
+	assert.match(cfg, /baseUrl: '\/x\/'/)
+	const wf = readFileSync(join(dir, '.github/workflows/docs.yml'), 'utf8')
+	assert.match(wf, /docs-deploy-cloudflare\.yml@v/)
+	assert.match(wf, /base-path: '\/x\/'/)
+	assert.match(wf, /route: 'docs\.example\.com\/x\/\*'/)
+	assert.match(wf, /CLOUDFLARE_API_TOKEN/)
+	assert.equal(run(dir, 'doctor', '--json').status, 0)
+	// a flag beats the file, and doctor flags the drift
+	assert.equal(run(dir, 'doctor', '--json', '--deploy', 'github').status, 1)
+
+	const none = repo()
+	run(none, 'init', '--deploy', 'none')
+	assert.throws(() => readFileSync(join(none, '.github/workflows/docs.yml')))
+	assert.equal(run(repo(), 'init', '--deploy', 'bogus').status, 1)
+})
