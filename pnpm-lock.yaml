@@ -25,8 +25,8 @@ importers:
         specifier: ^2.5.7
         version: 2.5.14
       '@rtorcato/repo-tooling':
-        specifier: ^3.1.0
-        version: 3.37.2(@biomejs/biome@2.5.14)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/github@12.0.9(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@types/node@22.20.4)(semantic-release@25.0.9(typescript@7.0.2))(typescript@7.0.2)
+        specifier: ^5.1.4
+        version: 5.1.4(@biomejs/biome@2.5.14)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/github@12.0.9(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@types/node@22.20.4)(semantic-release@25.0.9(typescript@7.0.2))(typescript@7.0.2)
       '@types/node':
         specifier: ^22.0.0
         version: 22.20.4
@@ -359,8 +359,8 @@ packages:
     resolution: {integrity: sha512-4EDEmvxWtgsCnnVeBvtFIFZtUhPPt1+bA9JrSwU4Sa//6oKtzCSlGGXYJr44OD9aGISymbieJ4mCKHUygUDU+g==}
     engines: {node: '>=18'}
 
-  '@rtorcato/repo-tooling@3.37.2':
-    resolution: {integrity: sha512-LyGRuFFjFhZirdDxIyqNnTzsAwq+hRUt5u0IF8X0coyxC94k5ae2BlMd8U96LGjg5KHMS9KDdLULYHAIuROdaw==}
+  '@rtorcato/repo-tooling@5.1.4':
+    resolution: {integrity: sha512-nFlhyM+eoQCgHMiLDx5GZ8LvEWtqExlPRS9VrFC9U4tYoT07eKv207Vww2Eiom8fJeF7zDx+acy5AbDITOlE/Q==}
     engines: {node: '>=22'}
     hasBin: true
     peerDependencies:
@@ -2123,7 +2123,7 @@ snapshots:
     dependencies:
       tinyexec: 1.3.1
 
-  '@rtorcato/repo-tooling@3.37.2(@biomejs/biome@2.5.14)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/github@12.0.9(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@types/node@22.20.4)(semantic-release@25.0.9(typescript@7.0.2))(typescript@7.0.2)':
+  '@rtorcato/repo-tooling@5.1.4(@biomejs/biome@2.5.14)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/github@12.0.9(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@types/node@22.20.4)(semantic-release@25.0.9(typescript@7.0.2))(typescript@7.0.2)':
     dependencies:
       chalk: 6.0.0
       commander: 15.0.0
