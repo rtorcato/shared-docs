@@ -356,7 +356,7 @@ automatically.
  * no moving major tag, so this is an exact release; bump it here, and `doctor`
  * warns every site still on another ref. `init --update` never rewrites docs.yml.
  */
-export const REPO_TOOLING_REF = 'v5.0.0'
+export const REPO_TOOLING_REF = 'v5.1.3'
 
 /** Drives the shared reusable deploy on push to main. */
 const docsWorkflow = (meta: SiteMeta): string => `name: 📚 Docs
