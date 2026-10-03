@@ -1,36 +1,54 @@
 version: 2
 updates:
-  # This repo has no runtime dependencies — react/react-dom are peers — so
-  # everything here is dev tooling. Grouped into one PR a week: five source
-  # files don't justify a PR per patch bump, and a single grouped PR still
-  # runs all four required checks.
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 3
-    groups:
-      dev-dependencies:
-        patterns: ['*']
-        # Minor and patch only. Without this, a major lands inside a PR titled
-        # "bump the dev-dependencies group" alongside three patch bumps — #33
-        # carried typescript 5.9.3 → 7.0.2 that way, and TS 7 changes tsc's
-        # emit, so it failed the committed-dist/ check rather than reading as
-        # the deliberate upgrade it is. Majors now arrive as their own PR.
-        update-types: [minor, patch]
+      interval: monthly
+      time: "06:00"
+      timezone: Etc/UTC
+    # Let brand-new releases settle before opening a PR — keeps grouped bumps
+    # from tripping pnpm's minimumReleaseAge supply-chain check (a same-day
+    # release fails the frozen-lockfile install in CI).
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 5
+    versioning-strategy: increase
     commit-message:
       # `chore:` publishes nothing (semantic-release only releases feat/fix),
       # which is right for a devDep bump — but a security fix that needs to
       # reach consumers must be relabelled `fix:` by hand before merging.
       prefix: chore
       include: scope
+    # Groups match the repo-tooling preset, but this repo deliberately has no
+    # dependabot-automerge workflow: it has no required status checks, so
+    # auto-merge would merge ungated. Every group goes through the ai-loop's
+    # two-review path and a human merge instead.
+    groups:
+      # Runtime minor/patch. Grouped so react/react-dom move together.
+      production-minor:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      # "development" is Dependabot's classification, not a safety property: a
+      # package listed in both devDependencies and peerDependencies lands here,
+      # and peer deps are part of a published package's contract.
+      dev-minor:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      # Majors batch into one PR per ecosystem — breaking by definition. Kept
+      # apart from minors so a major (e.g. #33's TypeScript 5 → 7) reads as the
+      # deliberate upgrade it is.
+      major-updates:
+        update-types:
+          - major
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-    groups:
-      actions:
-        patterns: ['*']
+      interval: monthly
     commit-message:
       prefix: ci
+      include: scope
