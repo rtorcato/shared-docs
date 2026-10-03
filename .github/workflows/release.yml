@@ -15,6 +15,10 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    # Must match the environment on the npm trusted publisher, or the OIDC
+    # exchange fails with "404 package not found". No protection rules yet,
+    # so this still publishes on merge; #93 adds required reviewers.
+    environment: release
     steps:
       - uses: actions/checkout@v7
         with:
