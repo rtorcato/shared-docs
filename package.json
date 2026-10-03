@@ -84,7 +84,7 @@
 		"@biomejs/biome": "^2.5.7",
 		"@rtorcato/repo-tooling": "^5.5.2",
 		"@size-limit/preset-small-lib": "^14.1.0",
-		"@types/node": "^22.0.0",
+		"@types/node": "^26.6.3",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"publint": "^0.3.23",
