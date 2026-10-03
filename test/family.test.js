@@ -4,7 +4,14 @@
 // Reach for vitest if a component ever needs rendering.
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { FAMILY, GITHUB_PROFILE, copyright, label, projectFamilyItems, siblings } from '../dist/index.js'
+import {
+	FAMILY,
+	GITHUB_PROFILE,
+	copyright,
+	label,
+	projectFamilyItems,
+	siblings,
+} from '../dist/index.js'
 
 test('siblings() drops the named member', () => {
 	const self = '@rtorcato/js-common'
@@ -29,7 +36,7 @@ test('projectFamilyItems() covers every member', () => {
 	assert.equal(items.length, FAMILY.length)
 	assert.deepEqual(
 		items,
-		FAMILY.map((m) => ({ label: label(m), href: m.href })),
+		FAMILY.map((m) => ({ label: label(m), href: m.href }))
 	)
 })
 
@@ -47,7 +54,7 @@ test('every FamilyMember is well formed', () => {
 		assert.equal(
 			m.dest === 'GitHub',
 			m.href.startsWith('https://github.com/'),
-			`${at}: dest "${m.dest}" disagrees with href ${m.href}`,
+			`${at}: dest "${m.dest}" disagrees with href ${m.href}`
 		)
 		assert.match(m.accent, /^#[0-9a-f]{6}$/i, `${at}: accent must be a 6-digit hex`)
 	}

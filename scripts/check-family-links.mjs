@@ -21,15 +21,14 @@ async function probe(url) {
 			if (res.ok) return { ok: true, status: res.status }
 			if (method === 'GET') return { ok: false, status: res.status }
 		} catch (err) {
-			if (method === 'GET') return { ok: false, status: err.name === 'TimeoutError' ? 'timeout' : err.message }
+			if (method === 'GET')
+				return { ok: false, status: err.name === 'TimeoutError' ? 'timeout' : err.message }
 		}
 	}
 	return { ok: false, status: 'unknown' }
 }
 
-const results = await Promise.all(
-	FAMILY.map(async (m) => ({ ...m, ...(await probe(m.href)) }))
-)
+const results = await Promise.all(FAMILY.map(async (m) => ({ ...m, ...(await probe(m.href)) })))
 
 for (const r of results) {
 	console.log(`${r.ok ? 'ok  ' : 'DEAD'}  ${String(r.status).padEnd(7)}  ${r.name}  ${r.href}`)
