@@ -64,7 +64,8 @@
 		"test": "node --test",
 		"check:links": "node scripts/check-family-links.mjs",
 		"publint": "publint --strict",
-		"attw": "attw --pack --profile esm-only"
+		"attw": "attw --pack --profile esm-only",
+		"size": "size-limit"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
@@ -82,11 +83,13 @@
 		"@arethetypeswrong/cli": "^0.18.5",
 		"@biomejs/biome": "^2.5.7",
 		"@rtorcato/repo-tooling": "^5.5.2",
+		"@size-limit/preset-small-lib": "^14.1.0",
 		"@types/node": "^22.0.0",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"publint": "^0.3.23",
 		"semantic-release": "^25.0.8",
+		"size-limit": "^14.1.0",
 		"typescript": "^7.0.2"
 	},
 	"publishConfig": {
