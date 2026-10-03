@@ -57,6 +57,8 @@ jobs:
         run: pnpm publint
       - name: Validate the published types (attw)
         run: pnpm attw
+      - name: Check bundle size budgets (size-limit)
+        run: pnpm size
 
   test:
     runs-on: ubuntu-latest

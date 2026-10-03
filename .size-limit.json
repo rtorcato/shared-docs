@@ -1,0 +1,38 @@
+[
+  {
+    "name": "@rtorcato/shared-docs",
+    "path": "dist/index.js",
+    "limit": "1 kB"
+  },
+  {
+    "name": "@rtorcato/shared-docs/components/InstallTabs",
+    "path": "dist/components/InstallTabs.js",
+    "limit": "800 B",
+    "ignore": ["react", "react-dom", "./InstallTabs.module.css"]
+  },
+  {
+    "name": "@rtorcato/shared-docs/components/CommandBlock",
+    "path": "dist/components/CommandBlock.js",
+    "limit": "600 B",
+    "ignore": ["react", "react-dom", "./CommandBlock.module.css", "./InstallTabs.module.css"]
+  },
+  {
+    "name": "@rtorcato/shared-docs/components/Siblings",
+    "path": "dist/components/Siblings.js",
+    "limit": "1.2 kB",
+    "ignore": ["react", "react-dom", "@docusaurus/Link", "./Siblings.module.css"]
+  },
+  {
+    "name": "@rtorcato/shared-docs/components/UseWithAI",
+    "path": "dist/components/UseWithAI.js",
+    "limit": "1.2 kB",
+    "ignore": [
+      "react",
+      "react-dom",
+      "@docusaurus/Link",
+      "./UseWithAI.module.css",
+      "./CommandBlock.module.css",
+      "./InstallTabs.module.css"
+    ]
+  }
+]
