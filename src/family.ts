@@ -88,14 +88,6 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#22d3ee',
 	},
 	{
-		name: '@rtorcato/repo-ai',
-		tagline:
-			'Turns ai-ready GitHub issues into reviewed PRs — one worktree per issue, two agent reviewers.',
-		href: 'https://docs.torcato.dev/repo-ai/',
-		dest: 'Docs',
-		accent: '#f472b6',
-	},
-	{
 		name: '@rtorcato/db-x',
 		tagline: 'Production-grade database schema deployment with the ergonomics of a JSX component.',
 		href: 'https://docs.torcato.dev/db-x/',
