@@ -1,3 +1,10 @@
+<!-- brand-kit:banner:start -->
+<picture>
+  <source media="(max-width: 640px)" srcset="./brand/banner-mobile.png">
+  <img src="./brand/banner.png" alt="shared-docs banner" width="1600">
+</picture>
+<!-- brand-kit:banner:end -->
+
 # @rtorcato/shared-docs
 
 Shared data and helpers for the `@rtorcato` docs sites — the framework-neutral
