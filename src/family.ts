@@ -89,8 +89,7 @@ export const FAMILY: FamilyMember[] = [
 	},
 	{
 		name: '@rtorcato/brand-kit',
-		tagline:
-			'Banner, social card and favicon for a repo — SVG sources you can regenerate, rendered to PNG.',
+		tagline: 'Banner, social card and favicon for any repo.',
 		href: 'https://docs.torcato.dev/brand-kit/',
 		dest: 'Docs',
 		accent: '#a3e635',
