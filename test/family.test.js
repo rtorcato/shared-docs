@@ -28,7 +28,7 @@ test('siblings() returns the full list for a name not in FAMILY', () => {
 
 test('label() strips the scope, and leaves an unscoped name alone', () => {
 	assert.equal(label({ name: '@rtorcato/api-common' }), 'api-common')
-	assert.equal(label({ name: 'db-x' }), 'db-x')
+	assert.equal(label({ name: 'example-pkg' }), 'example-pkg')
 })
 
 test('projectFamilyItems() covers every member', () => {
