@@ -56,7 +56,7 @@ ${cards}
 // Classify projects into groups: toolchain vs libraries
 const GROUPS = {
 	tool: ['repo-tooling', 'brand-kit'],
-	lib: ['js-common', 'api-common', 'browser-common', 'db-common', 'cf-common', 'react-common', 'swift-common', 'supabase-common', 'db-x'],
+	lib: ['js-common', 'api-common', 'browser-common', 'db-common', 'cf-common', 'react-common', 'swift-common', 'supabase-common'],
 }
 
 const projects = FAMILY.map((m) => ({
@@ -147,7 +147,7 @@ const page404 = `<!doctype html>
     <div><h4>Toolchain</h4><div id="f-tool"></div></div>
     <div><h4>Libraries</h4><div id="f-lib1"></div></div>
     <div><h4>&nbsp;</h4><div id="f-lib2"></div></div>
-    <div><h4>More</h4><a href="/">torcato.dev</a><a href="#">GitHub</a></div>
+    <div><h4>More</h4><a href="/">torcato.dev</a><a href="https://github.com/rtorcato">GitHub</a></div>
   </div>
   <div class="copy">© 2026 Richard Torcato · Built with shared-docs</div>
 </footer>
@@ -159,7 +159,7 @@ const page404 = `<!doctype html>
   }
   const card = (p) => {
     const gh = pending.has(p.id)
-    return \`<a class="card\${gh ? ' gh' : ''}" style="--a:\${p.accent}" href="#">
+    return \`<a class="card\${gh ? ' gh' : ''}" style="--a:\${p.accent}" href="\${p.href}">
       <div class="top">\${tile(p, 34, 9)}<h3>\${p.id}</h3></div>
       <p>\${p.tag}</p>
       <div class="f"><b>\${gh ? 'GitHub ↗' : 'Read the docs →'}</b></div></a>\`
@@ -170,9 +170,9 @@ const page404 = `<!doctype html>
   shelf.innerHTML = row.map((p) => (p === hit ? \`<span class="gap">\${p.id[0].toUpperCase()}</span>\` : tile(p, 44, 11))).join('') + (hit ? '' : '<span class="gap">?</span>')
   title.textContent = hit ? \`\${hit.id} isn't on the shelf yet\` : "This page isn't on the shelf"
   sub.innerHTML = hit ? \`Its docs site hasn't been deployed to <code class="path">/\${hit.id}/</code>.\` : 'It may have moved, or the project hasn\\'t published docs yet.'
-  acts.innerHTML = (hit ? '<a class="btn p" href="#">README on GitHub ↗</a>' : '') + '<a class="btn s" href="/">All docs</a>'
+  acts.innerHTML = (hit ? \`<a class="btn p" href="\${hit.href}">README on GitHub ↗</a>\` : '') + '<a class="btn s" href="/">All docs</a>'
   sections.innerHTML = \`<h2>\${hit ? 'Or browse the docs' : 'Try one of these'}</h2><div class="grid">\${[...byGroup('tool'), ...byGroup('lib')].filter((p) => p !== hit).map(card).join('')}</div>\`
-  const link = (p) => \`<a href="#">\${p.id}</a>\`
+  const link = (p) => \`<a href="\${p.href}">\${p.id}</a>\`
   document.getElementById('f-tool').innerHTML = byGroup('tool').map(link).join('')
   const libs = byGroup('lib')
   document.getElementById('f-lib1').innerHTML = libs.slice(0, 4).map(link).join('')
