@@ -19,7 +19,9 @@ pnpm lint
   squash subject drives semantic-release: `feat:` cuts a minor, `fix:` a patch, and
   `chore:`/`docs:`/`ci:` cut no release. A change consumers need to install must be
   `feat:` or `fix:`.
-- Do not bump `version` in `package.json` or tag by hand; releases are automatic.
+- Do not bump `version` in `package.json` or tag by hand; semantic-release does it.
+- Merging does not release. Closing a milestone or dispatching `release.yml`
+  publishes everything merged since the last tag in one batch.
 - Run `pnpm build && pnpm test` before pushing.
 - Editing `src/family.ts`? Check that every new `href` resolves (`pnpm check:links`).
 
