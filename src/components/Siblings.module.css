@@ -1,8 +1,13 @@
 /* Siblings.module.css — the "Sibling projects" grid.
    Self-contained: brings its own section/heading/card styles so a consuming
-   site only renders <Siblings self="…" />. Themed via Infima (--ifm-*) vars so
-   it adapts to each site's palette; card titles are tinted inline from the
-   family's per-project accent. */
+   site only renders <Siblings self="…" />. Themed via the design tokens
+   (--jt-*) so it follows the site's colour mode; each card gets its project's
+   family accent inline as --sibling-accent, for the left stripe and title tint.
+
+   Fallbacks are `light-dark(light, dark)` pairs lifted from repo-tooling's
+   theme-tokens.css, per the boundary rule in CLAUDE.md. `color-scheme` is not
+   set here: Docusaurus declares it at :root, so light-dark() follows the
+   site's theme toggle. */
 
 .section {
 	max-width: 1200px;
@@ -22,12 +27,12 @@
 	font-size: 30px;
 	letter-spacing: -0.02em;
 	font-weight: 800;
-	color: var(--ifm-heading-color);
+	color: var(--jt-heading, light-dark(#0a0e16, #ffffff));
 }
 .sub {
 	margin: 0;
 	font-size: 16px;
-	color: var(--ifm-color-emphasis-700);
+	color: var(--jt-muted, light-dark(#5b6675, #94a1b4));
 }
 
 .siblingGrid {
@@ -38,8 +43,9 @@
 .card {
 	display: block;
 	padding: 22px;
-	background: var(--ifm-card-background-color);
-	border: 1px solid var(--ifm-color-emphasis-200);
+	background: var(--jt-surface, light-dark(#ffffff, #111824));
+	border: 1px solid var(--jt-border, light-dark(rgba(12, 18, 28, 0.1), rgba(255, 255, 255, 0.08)));
+	border-left: 3px solid var(--sibling-accent);
 	border-radius: 16px;
 	/* biome-ignore lint/complexity/noImportantStyles: Docusaurus <Link> ships an
 	   underline on cards that only !important beats. */
@@ -50,7 +56,8 @@
 		border-color 0.15s;
 }
 .card:hover {
-	border-color: var(--ifm-color-primary);
+	border-color: var(--jt-accent, var(--ifm-color-primary));
+	border-left-color: var(--sibling-accent);
 	transform: translateY(-3px);
 }
 .cardHead {
@@ -62,17 +69,19 @@
 .cardName {
 	font-weight: 700;
 	font-size: 16px;
-	color: var(--ifm-heading-color);
+	/* Raw accents are tuned for dark surfaces; 55% black brings the lightest
+	   (#a3e635, #f2cc60) to AA on white. The spec's 62% leaves them near 3.9:1. */
+	color: light-dark(color-mix(in srgb, var(--sibling-accent) 55%, #000), var(--sibling-accent));
 }
 .cardCount {
 	font-size: 12px;
-	color: var(--ifm-color-emphasis-500);
+	color: var(--jt-faint, light-dark(#8a95a5, #647184));
 }
 .cardDesc {
 	margin: 0;
 	font-size: 13px;
 	line-height: 1.5;
-	color: var(--ifm-color-emphasis-700);
+	color: var(--jt-muted, light-dark(#5b6675, #94a1b4));
 }
 
 @media (max-width: 996px) {

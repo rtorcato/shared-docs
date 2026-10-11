@@ -1,5 +1,5 @@
 import Link from '@docusaurus/Link'
-import type { ReactElement } from 'react'
+import type { CSSProperties, ReactElement } from 'react'
 import { siblings } from '../index.js'
 import styles from './Siblings.module.css'
 
@@ -22,11 +22,14 @@ export default function Siblings({ self }: SiblingsProps): ReactElement {
 			</div>
 			<div className={styles.siblingGrid}>
 				{siblings(self).map((s) => (
-					<Link key={s.name} href={s.href} className={styles.card}>
+					<Link
+						key={s.name}
+						href={s.href}
+						className={styles.card}
+						style={{ '--sibling-accent': s.accent } as CSSProperties}
+					>
 						<div className={styles.cardHead}>
-							<div className={styles.cardName} style={{ color: s.accent }}>
-								{s.name}
-							</div>
+							<div className={styles.cardName}>{s.name}</div>
 							<div className={styles.cardCount}>{s.dest} ↗</div>
 						</div>
 						<p className={styles.cardDesc}>{s.tagline}</p>
