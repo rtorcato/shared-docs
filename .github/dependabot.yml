@@ -19,10 +19,11 @@ updates:
       # reach consumers must be relabelled `fix:` by hand before merging.
       prefix: chore
       include: scope
-    # Groups match the repo-tooling preset, but this repo deliberately has no
-    # dependabot-automerge workflow: it has no required status checks, so
-    # auto-merge would merge ungated. Every group goes through the ai-loop's
-    # two-review path and a human merge instead.
+    # Groups match the repo-tooling preset. The dependabot-automerge workflow
+    # runs in label mode: it never merges, it only adds `ai-review` to safe
+    # dev-minor and Actions bumps. This repo has no required status checks, so
+    # every group still goes through the ai-loop's two-review path and a human
+    # merge.
     groups:
       # Runtime minor/patch. Grouped so react/react-dom move together.
       production-minor:

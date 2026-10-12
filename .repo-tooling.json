@@ -28,13 +28,17 @@
       "publint": false,
       "badges": false
     },
-    "writtenBy": "@rtorcato/repo-tooling@5.1.4",
-    "writtenAt": "2026-09-30T15:43:43.474Z"
+    "writtenBy": "@rtorcato/repo-tooling@6.0.0",
+    "writtenAt": "2026-10-12T13:28:28.696Z"
   },
   "rules": {
     "mcp": {
       "recommended": []
     },
-    "exceptions": {}
+    "exceptions": {},
+    "dependabot": {
+      "onPr": "label",
+      "label": "ai-review"
+    }
   }
 }
