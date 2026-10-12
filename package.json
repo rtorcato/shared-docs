@@ -84,10 +84,10 @@
 		"@biomejs/biome": "^2.5.7",
 		"@rtorcato/repo-tooling": "^6.0.0",
 		"@size-limit/preset-small-lib": "^14.1.0",
-		"@types/node": "^26.6.3",
+		"@types/node": "^26.6.4",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
-		"publint": "^0.3.23",
+		"publint": "^0.3.25",
 		"semantic-release": "^25.0.8",
 		"size-limit": "^14.1.0",
 		"typescript": "^7.0.2"
