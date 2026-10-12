@@ -8,7 +8,7 @@ on:
   push:
     branches: [main]
     paths:
-      - 'landing/**'
+      - 'docs/site/**'
       - 'src/family.ts'
       - '.github/workflows/landing.yml'
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
     uses: rtorcato/repo-tooling/.github/workflows/docs-deploy-cloudflare.yml@v6.0.0
     with:
       build-filter: '@rtorcato/docs-landing'
-      build-output: landing/dist
+      build-output: docs/site/dist
       worker-name: docs-landing
       route: docs.torcato.dev/*
     secrets:
