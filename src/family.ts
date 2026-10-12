@@ -88,27 +88,10 @@ export const FAMILY: FamilyMember[] = [
 		accent: '#22d3ee',
 	},
 	{
-		name: '@rtorcato/db-x',
-		tagline: 'Production-grade database schema deployment with the ergonomics of a JSX component.',
-		href: 'https://docs.torcato.dev/db-x/',
-		dest: 'Docs',
-		accent: '#10b981',
-	},
-	{
 		name: '@rtorcato/brand-kit',
-		tagline:
-			'Banner, social card and favicon for a repo — SVG sources you can regenerate, rendered to PNG.',
+		tagline: 'Banner, social card and favicon for any repo.',
 		href: 'https://docs.torcato.dev/brand-kit/',
 		dest: 'Docs',
 		accent: '#a3e635',
 	},
-	// infra-x moved to the private `infrazero` org, so every public link to it 404s.
-	// Restore this entry (with its new home) if it goes public again.
-	// {
-	// 	name: '@rtorcato/infra-x',
-	// 	tagline: 'JSX as the deployment language — runtime and reference component libraries.',
-	// 	href: 'https://github.com/rtorcato/infra-x',
-	// 	dest: 'GitHub',
-	// 	accent: '#2dd4bf',
-	// },
 ]

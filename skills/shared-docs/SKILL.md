@@ -46,7 +46,7 @@ Install: `pnpm add -D @rtorcato/shared-docs`
 | `FAMILY` | `FamilyMember[]` | the whole family, including the consuming site's own package |
 | `siblings` | `(selfName: string) => FamilyMember[]` | the family minus one package — the landing-page grid |
 | `projectFamilyItems` | `() => { label, href }[]` | nav-dropdown / footer link items |
-| `label` | `(m: FamilyMember) => string` | short label; strips `@rtorcato/` **and nothing else** — `db-x` renders as-is |
+| `label` | `(m: FamilyMember) => string` | short label; strips `@rtorcato/` **and nothing else** |
 | `copyright` | `(builtWith?: string) => string` | footer line; defaults to `'Docusaurus'`, Fumadocs passes `copyright('Fumadocs')` |
 | `GITHUB_PROFILE` | `string` | `https://github.com/rtorcato` |
 | `FamilyMember` | `{ name, tagline, href, dest: 'Docs' \| 'GitHub', accent }` | type only |

@@ -1,8 +1,8 @@
-// Builds the docs.torcato.dev landing page into landing/dist from FAMILY, so the
+// Builds the docs.torcato.dev landing page into docs/site/dist from FAMILY, so the
 // index can never drift from the sibling list every docs site already uses.
 // Node 22 strips the types from family.ts natively; no build step needed.
 import { mkdirSync, writeFileSync } from 'node:fs'
-import { FAMILY, label } from '../src/family.ts'
+import { FAMILY, label } from '../../src/family.ts'
 
 const esc = (s) =>
 	s.replace(
