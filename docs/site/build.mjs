@@ -59,7 +59,7 @@ const GROUPS = {
 	lib: ['js-common', 'api-common', 'browser-common', 'db-common', 'cf-common', 'react-common', 'swift-common', 'supabase-common'],
 }
 
-const projects = FAMILY.map((m) => ({
+const projects = FAMILY.filter((m) => label(m) !== 'db-common').map((m) => ({
 	id: label(m),
 	name: m.name,
 	accent: m.accent,
@@ -170,7 +170,7 @@ const page404 = `<!doctype html>
   shelf.innerHTML = row.map((p) => (p === hit ? \`<span class="gap">\${p.id[0].toUpperCase()}</span>\` : tile(p, 44, 11))).join('') + (hit ? '' : '<span class="gap">?</span>')
   title.textContent = hit ? \`\${hit.id} isn't on the shelf yet\` : "This page isn't on the shelf"
   sub.innerHTML = hit ? \`Its docs site hasn't been deployed to <code class="path">/\${hit.id}/</code>.\` : 'It may have moved, or the project hasn\\'t published docs yet.'
-  acts.innerHTML = (hit ? \`<a class="btn p" href="\${hit.href}">README on GitHub ↗</a>\` : '') + '<a class="btn s" href="/">All docs</a>'
+  acts.innerHTML = (hit ? \`<a class="btn p" href="https://github.com/rtorcato/\${hit.id}">README on GitHub ↗</a>\` : '') + '<a class="btn s" href="/">All docs</a>'
   sections.innerHTML = \`<h2>\${hit ? 'Or browse the docs' : 'Try one of these'}</h2><div class="grid">\${[...byGroup('tool'), ...byGroup('lib')].filter((p) => p !== hit).map(card).join('')}</div>\`
   const link = (p) => \`<a href="\${p.href}">\${p.id}</a>\`
   document.getElementById('f-tool').innerHTML = byGroup('tool').map(link).join('')
