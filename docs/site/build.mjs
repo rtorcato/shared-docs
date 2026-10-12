@@ -171,7 +171,7 @@ const page404 = `<!doctype html>
   title.textContent = hit ? \`\${hit.id} isn't on the shelf yet\` : "This page isn't on the shelf"
   sub.innerHTML = hit ? \`Its docs site hasn't been deployed to <code class="path">/\${hit.id}/</code>.\` : 'It may have moved, or the project hasn\\'t published docs yet.'
   acts.innerHTML = (hit ? \`<a class="btn p" href="https://github.com/rtorcato/\${hit.id}">README on GitHub ↗</a>\` : '') + '<a class="btn s" href="/">All docs</a>'
-  sections.innerHTML = \`<h2>\${hit ? 'Or browse the docs' : 'Try one of these'}</h2><div class="grid">\${[...byGroup('tool'), ...byGroup('lib')].map(card).join('')}</div>\`
+  sections.innerHTML = \`<h2>\${hit ? 'Or browse the docs' : 'Try one of these'}</h2><div class="grid">\${[...byGroup('tool'), ...byGroup('lib')].filter((p) => p !== hit).map(card).join('')}</div>\`
   const link = (p) => \`<a href="\${p.href}">\${p.id}</a>\`
   document.getElementById('f-tool').innerHTML = byGroup('tool').map(link).join('')
   const libs = byGroup('lib')
