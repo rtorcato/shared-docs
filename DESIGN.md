@@ -59,7 +59,7 @@ outside this repo.
 logo, followed by a `/` separator. It shows on every page, desktop and mobile.
 
 - Text only, with no icon. 15px/600 (14px on phones), coloured
-  `--muted-strong` (`#aab4c3` dark, `#4b5565` light, both AA on the navbar),
+  `--jt-muted-strong` (`#aab4c3` dark, `#4b5565` light, both AA on the navbar),
   turning to `--ifm-color-primary` on hover. The hit area is ≥ 44px tall and
   focus rings are visible.
 - The separator is the muted colour, weight 300, and not a link.
@@ -88,7 +88,7 @@ so a site adds one plugin line and swizzles nothing.
 - Every site uses the shared plugin and exports, not its own copy of the link.
   `doctor` should flag a site that doesn't load the plugin.
 - Label it `torcato.dev`, not "Home": "Home" reads as the current site's home.
-- No new colour tokens beyond `--muted-strong`. The dashed outline in the mockup
+- No new colour tokens beyond `--jt-muted-strong`. The dashed outline in the mockup
   only marks what's new.
 - Sites with a custom mobile menu still need the drawer row. js-common swizzles
   `Navbar/MobileSidebar/PrimaryMenu` with a hard-coded list, so it needs a
