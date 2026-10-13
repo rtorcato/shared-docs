@@ -47,3 +47,41 @@ npx @rtorcato/brand-kit doctor --strict --tagline "One family list for every doc
   would make it show up in every site's sibling grid.
 - Keep the accent out of the components. They take colour from the theme
   tokens, and this accent is only for the repo's brand.
+
+## Back to torcato.dev
+
+Every family site links back to [torcato.dev](https://torcato.dev) in two
+places. Both are plain Docusaurus config, so no site has to swizzle anything.
+The mockups are private and live outside this repo.
+
+**A. Projects dropdown, first item.** `torcato.dev` comes first in the dropdown,
+in semibold and above a divider. Next come the family sites, then another
+divider and `All on GitHub →` last. Docusaurus adds the ↗ icon to every
+`href` item. The same list shows up in the default mobile drawer.
+
+**B. Footer, above the copyright.** A `← torcato.dev` link (14px, semibold,
+footer link colour, ≥ 44px tall) sits on its own line above the copyright, so
+it shows on every page in every theme.
+
+### What shared-docs exports
+
+- `HOME`: `{ label: 'torcato.dev', href: 'https://torcato.dev' }`.
+- One canonical dropdown list: `HOME`, a divider, `projectFamilyItems()`, a
+  divider, `All on GitHub →`. Sites drift today: js-common puts GitHub first
+  and brand-kit puts it last. The divider is a Docusaurus
+  `{ type: 'html', value: '<hr class="dropdown__divider">' }` item.
+- The footer link goes into `footer.copyright`. Docusaurus renders that field
+  as HTML. Keep `copyright()` returning plain text for non-Docusaurus callers,
+  and add the link next to it rather than inside it.
+
+### Rules
+
+- Every site uses the shared exports, not its own copy of the link.
+  `doctor` should flag a site whose dropdown or footer is missing `HOME`.
+- Label it `torcato.dev`, not "Home": "Home" reads as the current site's home.
+- No new colour. Both links use the existing link tokens. The dashed outline
+  in the mockup only marks what's new.
+- Sites with a custom mobile menu still need the link. js-common swizzles
+  `Navbar/MobileSidebar/PrimaryMenu` with a hard-coded list that has no
+  Projects at all, so it needs a `torcato.dev ↗` item added by hand. The
+  footer link covers it until then.
