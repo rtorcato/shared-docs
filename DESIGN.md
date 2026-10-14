@@ -109,7 +109,7 @@ signed this off on 2026-10-14. The mockups live outside this repo.
 | Fill | accent at 13% opacity (10% on light) | accent, opaque |
 | Border | 1px, accent at 38% opacity (40% on light) | none |
 | Glyph | accent stroke | `#0A0E16` stroke |
-| Stroke | 2 (navbar), 1.7 (hero), in 24-unit glyph space | 2.2 |
+| Stroke | 2, in 24-unit glyph space (navbar and hero share the file) | 2.2 |
 
 - Corner radius is 26% of the tile size. The glyph box is 58% of the tile,
   centred.
