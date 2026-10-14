@@ -194,6 +194,6 @@ writeFileSync('dist/404.html', page404)
 // Sites that moved hosts. Old links live on in published npm READMEs, so redirect them.
 writeFileSync(
 	'dist/_redirects',
-	'/repo-ai https://docs.infrazero.dev/repo-ai/ 301\n/repo-ai/* https://docs.infrazero.dev/repo-ai/:splat 301\n'
+	''
 )
 console.log(`landing: ${FAMILY.length} projects → dist/`)
