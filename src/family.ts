@@ -62,7 +62,7 @@ export const FAMILY: FamilyMember[] = [
 		tagline: 'Published React 19 component library — shared UI primitives.',
 		href: 'https://docs.torcato.dev/react-common/',
 		dest: 'Docs',
-		accent: '#818cf8',
+		accent: '#2dd4bf',
 	},
 	{
 		name: '@rtorcato/swift-common',
@@ -85,7 +85,7 @@ export const FAMILY: FamilyMember[] = [
 			'One wizard to scaffold TypeScript, linting, testing, and releases for any JS project.',
 		href: 'https://docs.torcato.dev/repo-tooling/',
 		dest: 'Docs',
-		accent: '#22d3ee',
+		accent: '#34d399',
 	},
 	{
 		name: '@rtorcato/repo-ai',
