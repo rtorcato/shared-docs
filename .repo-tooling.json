@@ -23,13 +23,13 @@
       "gitHooks": false,
       "commitLint": false,
       "semanticRelease": true,
-      "securityAutomation": false,
+      "securityAutomation": true,
       "bundler": "none",
       "publint": false,
       "badges": false
     },
-    "writtenBy": "@rtorcato/repo-tooling@6.0.0",
-    "writtenAt": "2026-10-12T13:28:28.696Z"
+    "writtenBy": "@rtorcato/repo-tooling@6.1.0",
+    "writtenAt": "2026-10-14T01:17:37.875Z"
   },
   "rules": {
     "mcp": {

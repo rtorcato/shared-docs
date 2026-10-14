@@ -82,7 +82,7 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.5",
 		"@biomejs/biome": "^2.5.7",
-		"@rtorcato/repo-tooling": "^6.0.0",
+		"@rtorcato/repo-tooling": "^6.1.0",
 		"@size-limit/preset-small-lib": "^14.1.0",
 		"@types/node": "^26.6.4",
 		"@types/react": "^19.0.0",
