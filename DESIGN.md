@@ -48,3 +48,49 @@ npx @rtorcato/brand-kit doctor --strict --tagline "One family list for every doc
   would make it show up in every site's sibling grid.
 - Keep the accent out of the components. They take colour from the theme
   tokens, and this accent is only for the repo's brand.
+
+## Back to torcato.dev
+
+Every family site links back to [torcato.dev](https://torcato.dev) in two
+places. rtorcato signed this off on 2026-10-13 (v3, no icon). The mockup lives
+outside this repo.
+
+**C. Navbar breadcrumb, always visible.** The navbar reads
+`torcato.dev / js-common`. The `torcato.dev` text link sits before the site
+logo, followed by a `/` separator. It shows on every page, desktop and mobile.
+
+- Text only, with no icon. 15px/600 (14px on phones), coloured
+  `--jt-muted-strong` (`#aab4c3` dark, `#4b5565` light, both AA on the navbar),
+  turning to `--ifm-color-primary` on hover. The hit area is ≥ 44px tall and
+  focus rings are visible.
+- The separator is the muted colour, weight 300, and not a link.
+- In the mobile drawer, `← torcato.dev` is the first row, above Docs.
+
+**B. Footer, above the copyright.** A `← torcato.dev` link (14px, semibold,
+footer link colour, ≥ 44px tall) sits on its own line above the copyright.
+
+The Projects dropdown stays as it is (family list only). `torcato.dev` doesn't
+go in the dropdown.
+
+### How shared-docs ships it
+
+Docusaurus has no config slot before the logo, so the breadcrumb needs a
+`theme/Navbar/Logo` override. Ship it from shared-docs as a small theme plugin,
+so a site adds one plugin line and swizzles nothing.
+
+- `HOME`: `{ label: 'torcato.dev', href: 'https://torcato.dev' }`, used by the
+  breadcrumb, the drawer row and the footer link.
+- The footer link goes into `footer.copyright`. Docusaurus renders that field
+  as HTML. Keep `copyright()` returning plain text for non-Docusaurus callers,
+  and add the link next to it rather than inside it.
+
+### Rules
+
+- Every site uses the shared plugin and exports, not its own copy of the link.
+  `doctor` should flag a site that doesn't load the plugin.
+- Label it `torcato.dev`, not "Home": "Home" reads as the current site's home.
+- No new colour tokens beyond `--jt-muted-strong`. The dashed outline in the mockup
+  only marks what's new.
+- Sites with a custom mobile menu still need the drawer row. js-common swizzles
+  `Navbar/MobileSidebar/PrimaryMenu` with a hard-coded list, so it needs a
+  `← torcato.dev` row added by hand. The navbar breadcrumb covers it until then.
