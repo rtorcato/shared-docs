@@ -55,7 +55,7 @@ ${cards}
 
 // Classify projects into groups: toolchain vs libraries
 const GROUPS = {
-	tool: ['repo-tooling', 'brand-kit'],
+	tool: ['repo-tooling', 'repo-ai', 'brand-kit'],
 	lib: ['js-common', 'api-common', 'browser-common', 'db-common', 'cf-common', 'react-common', 'swift-common', 'supabase-common'],
 }
 
@@ -149,10 +149,10 @@ const page404 = `<!doctype html>
     <div><h4>&nbsp;</h4><div id="f-lib2"></div></div>
     <div><h4>More</h4><a href="/">torcato.dev</a><a href="https://github.com/rtorcato">GitHub</a></div>
   </div>
-  <div class="copy">© 2026 Richard Torcato · Built with shared-docs</div>
+  <div class="copy">© 2026 Richard Torcato</div>
 </footer>
 <script>
-  const pending = new Set(['repo-ai', 'shared-docs'])
+  const pending = new Set(['repo-ai'])
   const tile = (p, size, fontSize) => {
     const ghMark = pending.has(p.id) ? '◆' : p.id[0].toUpperCase()
     return \`<span class="tile" style="width:\${size}px;height:\${size}px;font-size:\${fontSize}px;background:\${p.accent};--a:\${p.accent}">\${ghMark}</span>\`

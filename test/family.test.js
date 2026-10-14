@@ -26,6 +26,11 @@ test('siblings() returns the full list for a name not in FAMILY', () => {
 	assert.deepEqual(siblings('@rtorcato/js-comon'), FAMILY)
 })
 
+test('FAMILY never lists shared-docs', () => {
+	// The docs sites render FAMILY into their nav, footer and landing grid.
+	assert.ok(!FAMILY.some((m) => m.name === '@rtorcato/shared-docs'))
+})
+
 test('label() strips the scope, and leaves an unscoped name alone', () => {
 	assert.equal(label({ name: '@rtorcato/api-common' }), 'api-common')
 	assert.equal(label({ name: 'example-pkg' }), 'example-pkg')
