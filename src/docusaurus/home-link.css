@@ -1,0 +1,72 @@
+/* Back-to-torcato.dev link: navbar breadcrumb, mobile drawer row, footer line.
+   Colour comes from --jt-muted-strong / --jt-faint; the light-dark() pairs are
+   the fallback for a site whose copy of theme-tokens.css predates them. */
+
+.rt-home-crumb {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding: 0 2px;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--jt-muted-strong, light-dark(#4b5565, #aab4c3));
+}
+.rt-home-crumb:hover {
+	color: var(--ifm-color-primary);
+	text-decoration: none;
+}
+.rt-home-sep {
+	margin: 0 10px 0 8px;
+	font-size: 18px;
+	font-weight: 300;
+	color: var(--jt-faint, light-dark(#8a95a5, #647184));
+}
+.rt-home-crumb:focus-visible,
+.rt-home-footer a:focus-visible,
+.rt-home-row .menu__link:focus-visible {
+	outline: 2px solid var(--ifm-color-primary);
+	outline-offset: 2px;
+	border-radius: 4px;
+}
+
+/* The drawer header repeats the navbar logo; the row below it replaces the crumb. */
+.navbar-sidebar .rt-home-crumb,
+.navbar-sidebar .rt-home-sep {
+	display: none;
+}
+/* theme.css paints every .menu__list with the page background; the row should sit on the drawer surface. */
+.navbar-sidebar .rt-home-row {
+	background: transparent;
+	padding-bottom: 4px;
+	margin-bottom: 4px;
+	border-bottom: 1px solid var(--jt-border, var(--ifm-toc-border-color));
+}
+.rt-home-row .menu__link {
+	display: flex;
+	align-items: center;
+	min-height: 44px;
+	font-weight: 600;
+	color: var(--jt-muted-strong, light-dark(#4b5565, #aab4c3));
+}
+
+.rt-home-footer a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--ifm-footer-link-color);
+}
+.rt-home-footer a:hover {
+	color: var(--ifm-color-primary);
+	text-decoration: none;
+}
+
+@media (max-width: 576px) {
+	.rt-home-crumb {
+		font-size: 14px;
+	}
+	.rt-home-sep {
+		margin: 0 8px 0 6px;
+	}
+}

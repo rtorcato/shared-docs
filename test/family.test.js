@@ -7,7 +7,9 @@ import { test } from 'node:test'
 import {
 	FAMILY,
 	GITHUB_PROFILE,
+	HOME,
 	copyright,
+	footerCopyright,
 	label,
 	projectFamilyItems,
 	siblings,
@@ -73,4 +75,15 @@ test('copyright() names the framework and the current year', () => {
 	assert.equal(copyright(), `Copyright © ${year} Richard Torcato. Built with Docusaurus.`)
 	assert.match(copyright('Fumadocs'), /Built with Fumadocs\.$/)
 	assert.equal(GITHUB_PROFILE, 'https://github.com/rtorcato')
+})
+
+test('HOME is the one torcato.dev link', () => {
+	assert.deepEqual(HOME, { label: 'torcato.dev', href: 'https://torcato.dev' })
+})
+
+test('footerCopyright() puts the home link next to copyright(), not inside it', () => {
+	const html = footerCopyright('Fumadocs')
+	assert.ok(html.includes('href="https://torcato.dev">← torcato.dev</a>'))
+	assert.ok(html.endsWith(copyright('Fumadocs')))
+	assert.ok(!copyright().includes('torcato.dev'))
 })
