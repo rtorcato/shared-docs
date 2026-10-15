@@ -91,9 +91,9 @@ so a site adds one plugin line and swizzles nothing.
 - Label it `torcato.dev`, not "Home": "Home" reads as the current site's home.
 - No new colour tokens beyond `--jt-muted-strong`. The dashed outline in the mockup
   only marks what's new.
-- Sites with a custom mobile menu still need the drawer row. js-common swizzles
-  `Navbar/MobileSidebar/PrimaryMenu` with a hard-coded list, so it needs a
-  `← torcato.dev` row added by hand. The navbar breadcrumb covers it until then.
+- The plugin wraps the drawer layout, so a site that swizzles
+  `Navbar/MobileSidebar/PrimaryMenu` with its own list still gets the
+  `← torcato.dev` row. Don't add the row to that list by hand; it would show twice.
 
 ## Family marks
 
