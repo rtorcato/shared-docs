@@ -27,7 +27,7 @@ importers:
         version: 2.5.15
       '@rtorcato/repo-tooling':
         specifier: ^6.1.0
-        version: 6.1.0(@biomejs/biome@2.5.15)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@size-limit/preset-small-lib@14.1.0(size-limit@14.1.0))(@types/node@26.6.4)(semantic-release@25.0.9(typescript@7.0.2))(size-limit@14.1.0)(typescript@7.0.2)
+        version: 6.1.0(@biomejs/biome@2.5.15)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@size-limit/preset-small-lib@14.1.0(size-limit@14.1.0))(@types/node@26.6.4)(conventional-changelog-conventionalcommits@9.3.1)(semantic-release@25.0.9(typescript@7.0.2))(size-limit@14.1.0)(typescript@7.0.2)
       '@size-limit/preset-small-lib':
         specifier: ^14.1.0
         version: 14.1.0(size-limit@14.1.0)
@@ -40,6 +40,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.0
         version: 19.3.0(@types/react@19.3.0)
+      conventional-changelog-conventionalcommits:
+        specifier: ^9.3.1
+        version: 9.3.1
       publint:
         specifier: ^0.3.25
         version: 0.3.25
@@ -918,6 +921,10 @@ packages:
 
   conventional-changelog-angular@8.3.1:
     resolution: {integrity: sha512-6gfI3otXK5Ph5DfCOI1dblr+kN3FAm5a97hYoQkqNZxOaYa5WKfXH+AnpsmS+iUH2mgVC2Cg2Qw9m5OKcmNrIg==}
+    engines: {node: '>=18'}
+
+  conventional-changelog-conventionalcommits@9.3.1:
+    resolution: {integrity: sha512-dTYtpIacRpcZgrvBYvBfArMmK2xvIpv2TaxM0/ZI5CBtNUzvF2x0t15HsbRABWprS6UPmvj+PzHVjSx4qAVKyw==}
     engines: {node: '>=18'}
 
   conventional-changelog-writer@8.4.0:
@@ -2315,7 +2322,7 @@ snapshots:
 
   '@rolldown/pluginutils@1.0.1': {}
 
-  '@rtorcato/repo-tooling@6.1.0(@biomejs/biome@2.5.15)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@size-limit/preset-small-lib@14.1.0(size-limit@14.1.0))(@types/node@26.6.4)(semantic-release@25.0.9(typescript@7.0.2))(size-limit@14.1.0)(typescript@7.0.2)':
+  '@rtorcato/repo-tooling@6.1.0(@biomejs/biome@2.5.15)(@semantic-release/commit-analyzer@13.0.1(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/npm@13.1.5(semantic-release@25.0.9(typescript@7.0.2)))(@semantic-release/release-notes-generator@14.1.1(semantic-release@25.0.9(typescript@7.0.2)))(@size-limit/preset-small-lib@14.1.0(size-limit@14.1.0))(@types/node@26.6.4)(conventional-changelog-conventionalcommits@9.3.1)(semantic-release@25.0.9(typescript@7.0.2))(size-limit@14.1.0)(typescript@7.0.2)':
     dependencies:
       chalk: 6.0.1
       commander: 15.0.0
@@ -2328,6 +2335,7 @@ snapshots:
       '@semantic-release/npm': 13.1.5(semantic-release@25.0.9(typescript@7.0.2))
       '@semantic-release/release-notes-generator': 14.1.1(semantic-release@25.0.9(typescript@7.0.2))
       '@size-limit/preset-small-lib': 14.1.0(size-limit@14.1.0)
+      conventional-changelog-conventionalcommits: 9.3.1
       semantic-release: 25.0.9(typescript@7.0.2)
       size-limit: 14.1.0
       typescript: 7.0.2
@@ -2630,6 +2638,10 @@ snapshots:
   content-type@3.1.1: {}
 
   conventional-changelog-angular@8.3.1:
+    dependencies:
+      compare-func: 2.0.0
+
+  conventional-changelog-conventionalcommits@9.3.1:
     dependencies:
       compare-func: 2.0.0
 
