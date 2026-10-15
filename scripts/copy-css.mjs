@@ -1,4 +1,4 @@
-// tsc doesn't copy non-TS assets, so mirror every src/**/*.module.css into dist/
+// tsc doesn't copy non-TS assets, so mirror every src/**/*.css into dist/
 // preserving structure. Run after tsc in the build script.
 import { cpSync, mkdirSync, readdirSync, statSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
@@ -10,7 +10,7 @@ function walk(dir) {
 	for (const entry of readdirSync(dir)) {
 		const p = join(dir, entry)
 		if (statSync(p).isDirectory()) walk(p)
-		else if (p.endsWith('.module.css')) {
+		else if (p.endsWith('.css')) {
 			const dest = join(OUT, relative(SRC, p))
 			mkdirSync(dirname(dest), { recursive: true })
 			cpSync(p, dest)

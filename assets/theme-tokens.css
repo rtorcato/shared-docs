@@ -51,6 +51,7 @@
 	--jt-text: #374253;
 	--jt-muted: #5b6675;
 	--jt-faint: #8a95a5;
+	--jt-muted-strong: #4b5565;
 	--jt-shadow: 0 22px 50px -26px rgba(20, 28, 44, 0.3);
 }
 
@@ -79,5 +80,6 @@
 	--jt-text: #dfe5ee;
 	--jt-muted: #94a1b4;
 	--jt-faint: #647184;
+	--jt-muted-strong: #aab4c3;
 	--jt-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.75);
 }

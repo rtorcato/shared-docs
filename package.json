@@ -50,6 +50,10 @@
 			"types": "./dist/components/UseWithAI.d.ts",
 			"default": "./dist/components/UseWithAI.js"
 		},
+		"./docusaurus": {
+			"types": "./dist/docusaurus/index.d.ts",
+			"default": "./dist/docusaurus/index.js"
+		},
 		"./package.json": "./package.json"
 	},
 	"files": [

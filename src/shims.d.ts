@@ -20,3 +20,17 @@ declare module '@theme/CodeBlock' {
 		children?: ReactNode
 	}): ReactElement
 }
+
+declare module '@theme-init/Navbar/Logo' {
+	import type { ReactElement } from 'react'
+	export default function Logo(props: Record<string, unknown>): ReactElement
+}
+
+declare module '@theme-init/Navbar/MobileSidebar/Layout' {
+	import type { ReactElement, ReactNode } from 'react'
+	export default function Layout(props: {
+		header?: ReactNode
+		primaryMenu?: ReactNode
+		secondaryMenu?: ReactNode
+	}): ReactElement
+}

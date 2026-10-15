@@ -54,6 +54,33 @@ import { siblings, type FamilyMember } from '@rtorcato/shared-docs'
 const SIBLINGS = siblings('@rtorcato/cf-common')
 ```
 
+## Back to torcato.dev
+
+Every family site links back to [torcato.dev](https://torcato.dev). Docusaurus has
+no config slot before the logo, so a small theme plugin does it; a site adds one
+line and swizzles nothing.
+
+```ts
+// docusaurus.config.ts
+import { footerCopyright } from '@rtorcato/shared-docs'
+
+plugins: ['@rtorcato/shared-docs/docusaurus'],
+themeConfig: { footer: { copyright: footerCopyright() } },
+```
+
+- **Navbar:** a `torcato.dev /` breadcrumb before the site logo, on every page.
+- **Mobile drawer:** `← torcato.dev` as the first row, above Docs. It wraps the
+  drawer layout, so a site that swizzles `Navbar/MobileSidebar/PrimaryMenu` with its
+  own list still gets it. Don't add the row to that list by hand.
+- **Footer:** `footerCopyright()` puts a `← torcato.dev` line above the copyright.
+  It returns HTML (Docusaurus renders `footer.copyright` as HTML); `copyright()` stays
+  plain text for non-Docusaurus callers.
+
+Colour comes from `--jt-muted-strong`, added to `theme-tokens.css`. A site whose
+copy predates it falls back to the same values; run `shared-docs init --update` to
+refresh it. A site's own `src/theme/Navbar/Logo` or `Navbar/MobileSidebar/Layout`
+overrides the plugin's.
+
 ## API
 
 - `FAMILY: FamilyMember[]` — the full family (all packages, including each site's own).

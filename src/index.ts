@@ -1,7 +1,9 @@
 import { FAMILY, type FamilyMember, label } from './family.js'
+import { HOME } from './home.js'
 
 export { FAMILY, label } from './family.js'
 export type { FamilyMember } from './family.js'
+export { HOME } from './home.js'
 
 /** A nav/footer link item — the neutral `{ label, href }` shape (works in Docusaurus, Fumadocs, or any framework). */
 export type FamilyLink = { label: string; href: string }
@@ -34,3 +36,12 @@ export const GITHUB_PROFILE = 'https://github.com/rtorcato'
  */
 export const copyright = (builtWith = 'Docusaurus'): string =>
 	`Copyright © ${new Date().getFullYear()} Richard Torcato. Built with ${builtWith}.`
+
+/**
+ * Docusaurus `footer.copyright` (rendered as HTML): a `← torcato.dev` line above
+ * the plain-text {@link copyright}. Styled by the `@rtorcato/shared-docs/docusaurus` plugin.
+ *
+ * @param builtWith - forwarded to {@link copyright}
+ */
+export const footerCopyright = (builtWith?: string): string =>
+	`<div class="rt-home-footer"><a href="${HOME.href}">← ${HOME.label}</a></div>${copyright(builtWith)}`

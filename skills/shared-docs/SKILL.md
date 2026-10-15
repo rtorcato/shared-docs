@@ -67,6 +67,19 @@ navbar: { items: [
 footer: { links: [{ title: 'Projects', items: PROJECT_FAMILY }], copyright: copyright() },
 ```
 
+## Back to torcato.dev
+
+Every site adds the theme plugin and uses `footerCopyright()` (HTML, `← torcato.dev`
+above the copyright) in place of `copyright()`; `HOME` is the link's single source.
+The plugin adds the navbar breadcrumb and the mobile drawer's first row.
+
+```ts
+plugins: ['@rtorcato/shared-docs/docusaurus'],
+themeConfig: { footer: { copyright: footerCopyright() } },
+```
+
+Don't hand-add the drawer row to a swizzled `Navbar/MobileSidebar/PrimaryMenu`; the plugin wraps the drawer layout.
+
 ## Components (Docusaurus)
 
 Each is a **default** export on its own subpath.
