@@ -1,9 +1,10 @@
 # Design
 
-shared-docs ships data and a few React components; it owns no theme. Colour,
-type and the `--ifm-*` / `--jt-*` tokens live in repo-tooling's
-`tooling/docusaurus/` (see CLAUDE.md, "Boundary with repo-tooling"). This file
-only covers the repo's own brand.
+shared-docs ships data, a few React components, and the shared docs theme:
+`assets/theme-tokens.css` (the `--ifm-*` / `--jt-*` tokens) and
+`assets/theme.css` (component overrides), which `shared-docs init` copies into
+each site. Each site sets its own accent. This file covers the theme's motion
+and the repo's own brand.
 
 shared-docs will never have a docs site of its own. The brand only shows up on
 the README, the GitHub social preview and the npm page.
