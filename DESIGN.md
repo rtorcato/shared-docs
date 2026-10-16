@@ -228,3 +228,33 @@ glow.
   `src/family.ts` together.
 - `alt` / `aria-label` is the package name. In the hero the mark is decorative
   next to the wordmark, so use `alt=""`.
+
+## Motion
+
+`assets/theme.css` retunes two transitions that Docusaurus and Infima already
+ship, so every site that carries it behaves the same (#141). Keep motion rare:
+it only shows that something changed state. Don't add a motion library, swizzle,
+or JS for it.
+
+| Where | What moves | Timing |
+|---|---|---|
+| Copy button on every code block | The check scales 0.6 → 1 and fades in, coloured `--jt-accent`. The copy icon fades out. | 200ms in after 75ms, 120ms out |
+| Mobile menu (below 996px) | `.navbar-sidebar` slides with `transform`, and its backdrop fades | 250ms open, 200ms close |
+
+### Rules
+
+- **Easing:** `cubic-bezier(0.2, 0, 0, 1)` for both.
+- **Only `transform` and `opacity` animate** (plus Infima's `visibility`
+  switch). Never `all`, width, height, top or left.
+- **Keep the success icon centred.** Its transform stays
+  `translate(-50%, -50%) scale(…)`.
+- **Select the hashed CSS-module classes with attribute selectors**, e.g.
+  `[class*="copyButtonSuccessIcon"]`.
+- **The check needs 3:1** against the button in both themes (WCAG 1.4.11). It
+  replaces Docusaurus' hard-coded `#00d600`.
+- **Leave `.navbar-sidebar__items` alone.** The single-flat drawer's transform
+  lock lives in each site's swizzle files.
+- **Reduced motion:** under `prefers-reduced-motion: reduce` there are no
+  transitions. The check swaps instantly and the menu appears in place.
+- **Out of scope:** page transitions, scroll effects, animated marks. A Lottie
+  belongs only on a 404 or empty state, one per screen, and gets its own spec.
