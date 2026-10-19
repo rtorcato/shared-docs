@@ -2,7 +2,8 @@
    Self-contained: brings its own section/heading/card styles so a consuming
    site only renders <Siblings self="…" />. Themed via the design tokens
    (--jt-*) so it follows the site's colour mode; each card gets its project's
-   family accent inline as --sibling-accent, for the left stripe and title tint.
+   family accent inline as --sibling-accent, which tints the title and the
+   hover/focus border (there is no accent stripe).
 
    Fallbacks are `light-dark(light, dark)` pairs lifted from repo-tooling's
    theme-tokens.css, per the boundary rule in CLAUDE.md. `color-scheme` is not
@@ -45,7 +46,6 @@
 	padding: 22px;
 	background: var(--jt-surface, light-dark(#ffffff, #111824));
 	border: 1px solid var(--jt-border, light-dark(rgba(12, 18, 28, 0.1), rgba(255, 255, 255, 0.08)));
-	border-left: 3px solid var(--sibling-accent);
 	border-radius: 16px;
 	/* biome-ignore lint/complexity/noImportantStyles: Docusaurus <Link> ships an
 	   underline on cards that only !important beats. */
@@ -55,10 +55,22 @@
 		transform 0.15s,
 		border-color 0.15s;
 }
+/* Same light/dark mix as .cardName, so the border matches the title and
+   passes contrast on white. */
+.card:hover,
+.card:focus-visible {
+	border-color: light-dark(
+		color-mix(in srgb, var(--sibling-accent) 55%, #000),
+		var(--sibling-accent)
+	);
+}
 .card:hover {
-	border-color: var(--jt-accent, var(--ifm-color-primary));
-	border-left-color: var(--sibling-accent);
 	transform: translateY(-3px);
+}
+@media (prefers-reduced-motion: reduce) {
+	.card:hover {
+		transform: none;
+	}
 }
 .cardHead {
 	display: flex;
