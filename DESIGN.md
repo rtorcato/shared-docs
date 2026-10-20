@@ -96,6 +96,48 @@ so a site adds one plugin line and swizzles nothing.
   `Navbar/MobileSidebar/PrimaryMenu` with its own list still gets the
   `← torcato.dev` row. Don't add the row to that list by hand; it would show twice.
 
+## Buy me a coffee
+
+Every family site links to [buymeacoffee.com/rtorcato](https://buymeacoffee.com/rtorcato)
+from the footer (#151). rtorcato signed off option A on 2026-10-20. The mockup
+lives outside this repo.
+
+**A. Footer line, next to `← torcato.dev`.** The line above the copyright
+reads `← torcato.dev · ☕ Buy me a coffee`.
+
+- Lucide `coffee` icon at 16px, then the text, 14px/600 in
+  `--ifm-footer-link-color` (`#dfe5ee` on `#0b101a` dark, `#374253` on
+  `#f6f8fb` light, both AA). It turns to `--ifm-color-primary` on hover, like
+  the `torcato.dev` link next to it.
+- The icon gets `aria-hidden="true"` and a 6px gap before the text. It uses
+  `currentColor`, so it follows the hover colour.
+- The `·` separator is aria-hidden, in the footer link colour at weight 300,
+  with 10px on each side. It isn't a link.
+- The hit area is at least 44px tall and the focus ring is the same as the
+  `torcato.dev` link's.
+- It opens in a new tab (`target="_blank" rel="noopener noreferrer"`). The
+  accessible name is "Buy me a coffee (opens in new tab)".
+- At 320px the line still fits on one row.
+
+### How shared-docs ships it
+
+- `COFFEE`: `{ label: 'Buy me a coffee', href: 'https://buymeacoffee.com/rtorcato' }`,
+  next to `HOME` in `src/home.ts`.
+- `footerCopyright()` adds the separator and the coffee link inside the
+  existing `rt-home-footer` div. Paste the icon as inline SVG with a
+  `<!-- lucide coffee, ISC -->` comment, the same as the family marks.
+- Style it in `src/docusaurus/home-link.css`, next to the `rt-home-footer`
+  rules. Sites change nothing except bumping shared-docs.
+- `copyright()` stays plain text, with no link.
+
+### Rules
+
+- Footer only. No navbar button, no Community-column link, and no
+  per-site copies (options B and C were turned down).
+- No new colour tokens, and no Buy Me a Coffee brand yellow or logo. The
+  lucide cup in the footer link colour is the whole treatment.
+- The label is "Buy me a coffee", in sentence case.
+
 ## Family marks
 
 Every family site gets one mark: a rounded tile tinted with the site's accent,
