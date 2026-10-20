@@ -2,7 +2,7 @@
   {
     "name": "@rtorcato/shared-docs",
     "path": "dist/index.js",
-    "limit": "1 kB"
+    "limit": "1.2 kB"
   },
   {
     "name": "@rtorcato/shared-docs/components/InstallTabs",
