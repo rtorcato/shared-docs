@@ -10,6 +10,8 @@
 Shared data and helpers for the `@rtorcato` docs sites — the framework-neutral
 sibling-family list and nav/footer builders, plus Docusaurus components.
 
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/rtorcato)
+
 The single source of truth for the **sibling-family list** — the cross-links
 every `@rtorcato/*` docs site shows in its nav, footer, and landing grid. Edit
 the family once here; each site picks it up on its next build.
