@@ -74,7 +74,7 @@ themeConfig: { footer: { copyright: footerCopyright() } },
 - **Mobile drawer:** `← torcato.dev` as the first row, above Docs. It wraps the
   drawer layout, so a site that swizzles `Navbar/MobileSidebar/PrimaryMenu` with its
   own list still gets it. Don't add the row to that list by hand.
-- **Footer:** `footerCopyright()` puts a `← torcato.dev` line above the copyright.
+- **Footer:** `footerCopyright()` puts a `← torcato.dev · Buy me a coffee` line above the copyright.
   It returns HTML (Docusaurus renders `footer.copyright` as HTML); `copyright()` stays
   plain text for non-Docusaurus callers.
 
