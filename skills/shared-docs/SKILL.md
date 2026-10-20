@@ -89,7 +89,7 @@ Each is a **default** export on its own subpath.
 | `/components/Siblings` | `{ self: string }` | the "Sibling projects" card grid, excluding `self` |
 | `/components/InstallTabs` | `{ pkg: string }` | npm/pnpm/yarn/bun tabs with a copy button |
 | `/components/CommandBlock` | `{ commands: string[] }` | a stack of copyable command rows |
-| `/components/UseWithAI` | `{ repo, plugin, name?, rules }` | the "Use with AI" section — Claude Code plugin install + pasteable rules |
+| `/components/UseWithAI` | `{ repo, plugin, pkg?, agentsPath?, skill?, name?, blurb? }` | the "Use with AI" section — skills CLI, Claude Code plugin install, and AGENTS.md (from `pkg` in node_modules, or from the repo when `pkg` is omitted) |
 
 ```tsx
 // src/pages/index.tsx

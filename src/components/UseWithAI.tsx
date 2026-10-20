@@ -8,8 +8,14 @@ type UseWithAIProps = {
 	repo: string
 	/** Claude Code plugin id and marketplace id, e.g. "cf-common". */
 	plugin: string
-	/** npm package name, e.g. "@rtorcato/cf-common" — used for the AGENTS.md path. */
-	pkg: string
+	/**
+	 * npm package name, e.g. "@rtorcato/cf-common" — the AGENTS.md path in node_modules.
+	 * Omit it when no single package ships AGENTS.md (a monorepo); the third card then
+	 * points at the repo's copy instead.
+	 */
+	pkg?: string
+	/** Path to the rules file in `repo`, for the "Read the rules →" link and the no-`pkg` card; defaults to `AGENTS.md`. */
+	agentsPath?: string
 	/** Skill directory name under `skills/`; defaults to `plugin`. */
 	skill?: string
 	/** Display name used in the intro line; defaults to `plugin`. */
@@ -32,10 +38,30 @@ export default function UseWithAI({
 	repo,
 	plugin,
 	pkg,
+	agentsPath = 'AGENTS.md',
 	skill = plugin,
 	name = plugin,
 	blurb,
 }: UseWithAIProps): ReactElement {
+	const rulesUrl = `https://github.com/${repo}/blob/main/${agentsPath}`
+	const agentsCard = pkg
+		? {
+				desc: (
+					<>
+						They read <code>AGENTS.md</code>. It ships in the npm tarball, so it is already in your{' '}
+						<code>node_modules</code>.
+					</>
+				),
+				commands: [`node_modules/${pkg}/AGENTS.md`],
+			}
+		: {
+				desc: (
+					<>
+						They read <code>{agentsPath}</code> from the repo.
+					</>
+				),
+				commands: [rulesUrl],
+			}
 	const targets = [
 		{
 			title: 'Any coding agent',
@@ -47,16 +73,7 @@ export default function UseWithAI({
 			desc: <>The repo is its own plugin marketplace — add it, then install the skill.</>,
 			commands: [`/plugin marketplace add ${repo}`, `/plugin install ${plugin}@${plugin}`],
 		},
-		{
-			title: 'Cursor, Copilot, Codex',
-			desc: (
-				<>
-					They read <code>AGENTS.md</code>. It ships in the npm tarball, so it is already in your{' '}
-					<code>node_modules</code>.
-				</>
-			),
-			commands: [`node_modules/${pkg}/AGENTS.md`],
-		},
+		{ title: 'Cursor, Copilot, Codex', ...agentsCard },
 	]
 
 	return (
@@ -69,7 +86,7 @@ export default function UseWithAI({
 							`A skill ships with the package so coding agents use ${name} correctly — whichever tool you're in.`}
 					</p>
 				</div>
-				<Link className={styles.viewAll} href={`https://github.com/${repo}/blob/main/AGENTS.md`}>
+				<Link className={styles.viewAll} href={rulesUrl}>
 					Read the rules →
 				</Link>
 			</div>
