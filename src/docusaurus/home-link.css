@@ -61,6 +61,16 @@
 	color: var(--ifm-color-primary);
 	text-decoration: none;
 }
+.rt-home-dot {
+	margin: 0 10px;
+	font-size: 14px;
+	font-weight: 300;
+	color: var(--ifm-footer-link-color);
+}
+.rt-home-coffee {
+	flex: none;
+	margin-right: 6px;
+}
 
 @media (max-width: 576px) {
 	.rt-home-crumb {

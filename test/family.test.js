@@ -87,3 +87,13 @@ test('footerCopyright() puts the home link next to copyright(), not inside it', 
 	assert.ok(html.endsWith(copyright('Fumadocs')))
 	assert.ok(!copyright().includes('torcato.dev'))
 })
+
+test('footerCopyright() adds the Buy me a coffee link, opening in a new tab', () => {
+	const html = footerCopyright()
+	assert.ok(
+		html.includes(
+			'href="https://buymeacoffee.com/rtorcato" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee (opens in new tab)"',
+		),
+	)
+	assert.ok(!copyright().includes('buymeacoffee'))
+})
