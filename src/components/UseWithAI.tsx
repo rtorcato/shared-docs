@@ -83,7 +83,7 @@ export default function UseWithAI({
 					<h2 className={styles.h2}>Use with AI</h2>
 					<p className={styles.sub}>
 						{blurb ??
-							`A skill ships with the package so coding agents use ${name} correctly — whichever tool you're in.`}
+							`A skill ships with ${pkg ? 'the package' : 'the repo'} so coding agents use ${name} correctly — whichever tool you're in.`}
 					</p>
 				</div>
 				<Link className={styles.viewAll} href={rulesUrl}>
