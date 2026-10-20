@@ -48,6 +48,9 @@
 
 .aiStack {
 	display: grid;
+	/* `1fr` alone is `minmax(auto, 1fr)`: the track grows to the longest nowrap
+	   command and the page scrolls sideways. 0 lets the command scroll in its row. */
+	grid-template-columns: minmax(0, 1fr);
 	gap: 16px;
 }
 .card {
