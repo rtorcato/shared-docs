@@ -92,8 +92,8 @@ test('footerCopyright() adds the Buy me a coffee link, opening in a new tab', ()
 	const html = footerCopyright()
 	assert.ok(
 		html.includes(
-			'href="https://buymeacoffee.com/rtorcato" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee (opens in new tab)"',
-		),
+			'href="https://buymeacoffee.com/rtorcato" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee (opens in new tab)"'
+		)
 	)
 	assert.ok(!copyright().includes('buymeacoffee'))
 })
