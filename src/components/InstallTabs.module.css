@@ -45,7 +45,7 @@
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-size: 13px;
 	font-weight: 600;
-	color: var(--ifm-color-emphasis-600, light-dark(#5b6675, #94a1b4));
+	color: light-dark(#5f6b7a, #768397);
 	border-bottom: 2px solid transparent;
 	transition: color 0.15s;
 }
@@ -63,8 +63,10 @@
 	gap: 12px;
 	padding: 15px 14px 15px 16px;
 }
+/* AA muted grey (4.5:1+): 5.43 on #fff / 5.04 on #f2f8f5, 4.63 on #111824. Not
+   Infima's emphasis-500/600 or --jt-faint, which resolve to ~2.8-3.6 on a host. */
 .prompt {
-	color: var(--ifm-color-emphasis-500, light-dark(#8a95a5, #647184));
+	color: light-dark(#5f6b7a, #768397);
 	font-family: var(--ifm-font-family-monospace, monospace);
 	font-weight: 600;
 	font-size: 14px;
