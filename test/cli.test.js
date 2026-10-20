@@ -28,6 +28,22 @@ test('init scaffolds a site wired to shared-docs, and is idempotent', () => {
 	assert.deepEqual(JSON.parse(run(dir, 'init', '--json').stdout).written, [])
 })
 
+test('doctor accepts footerCopyright() in place of copyright()', () => {
+	const dir = repo()
+	run(dir, 'init')
+	const cfgPath = join(dir, 'apps/docs/docusaurus.config.ts')
+	writeFileSync(
+		cfgPath,
+		readFileSync(cfgPath, 'utf8').replace(/copyright\(\)/, 'footerCopyright()')
+	)
+	const r = run(dir, 'doctor', '--json')
+	assert.equal(r.status, 0)
+	const check = JSON.parse(r.stdout).checks.find(
+		(c) => c.check === 'config uses copyright() or footerCopyright()'
+	)
+	assert.equal(check.status, 'ok')
+})
+
 test('doctor passes after init and fails on drift; --json is parseable', () => {
 	const dir = repo()
 	run(dir, 'init')

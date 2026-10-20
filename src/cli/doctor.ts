@@ -79,10 +79,11 @@ export async function doctor(
 		'config renders the Projects dropdown/footer',
 		`${cfg} never calls projectFamilyItems()`
 	)
+	// copyright() or footerCopyright() (the README's torcato.dev footer); either one is a real copyright line.
 	await contains(
 		cfg,
-		'copyright(',
-		'config uses copyright()',
+		/\b(?:footerC|c)opyright\(/,
+		'config uses copyright() or footerCopyright()',
 		`${cfg} hardcodes its copyright line`
 	)
 	await contains(
