@@ -56,7 +56,16 @@ ${cards}
 // Classify projects into groups: toolchain vs libraries
 const GROUPS = {
 	tool: ['repo-tooling', 'repo-ai', 'brand-kit'],
-	lib: ['js-common', 'api-common', 'browser-common', 'db-common', 'cf-common', 'react-common', 'swift-common', 'supabase-common'],
+	lib: [
+		'js-common',
+		'api-common',
+		'browser-common',
+		'db-common',
+		'cf-common',
+		'react-common',
+		'swift-common',
+		'supabase-common',
+	],
 }
 
 const projects = FAMILY.map((m) => ({
@@ -192,8 +201,5 @@ writeFileSync(
 )
 writeFileSync('dist/404.html', page404)
 // Sites that moved hosts. Old links live on in published npm READMEs, so redirect them.
-writeFileSync(
-	'dist/_redirects',
-	''
-)
+writeFileSync('dist/_redirects', '')
 console.log(`landing: ${FAMILY.length} projects → dist/`)
