@@ -116,7 +116,7 @@ Source: [`skills/shared-docs/SKILL.md`](./skills/shared-docs/SKILL.md).
 
 ### `<UseWithAI>` on your own landing page
 
-The package also ships the "Use with AI" section that the family sites show on
+The package also ships the "Use with AI" section that the torcato.dev docs sites show on
 their landing pages. It renders three cards: the skills CLI, the Claude Code
 plugin marketplace, and an `AGENTS.md` card for Cursor, Copilot and Codex.
 
