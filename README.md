@@ -114,6 +114,32 @@ npx skills add https://github.com/rtorcato/shared-docs --skill shared-docs
 
 Source: [`skills/shared-docs/SKILL.md`](./skills/shared-docs/SKILL.md).
 
+### `<UseWithAI>` on your own landing page
+
+The package also ships the "Use with AI" section that the family sites show on
+their landing pages. It renders three cards: the skills CLI, the Claude Code
+plugin marketplace, and an `AGENTS.md` card for Cursor, Copilot and Codex.
+
+```tsx
+import UseWithAI from '@rtorcato/shared-docs/components/UseWithAI'
+
+// A published package that ships AGENTS.md in its tarball:
+<UseWithAI repo="rtorcato/cf-common" plugin="cf-common" pkg="@rtorcato/cf-common" />
+
+// No single package ships AGENTS.md (a monorepo, say). Leave out pkg:
+<UseWithAI repo="rtorcato/my-monorepo" plugin="my-monorepo" agentsPath="docs/AGENTS.md" />
+```
+
+- `repo` (required): GitHub `owner/name`. It's used for the skills CLI command,
+  the marketplace, and the "Read the rules →" link.
+- `plugin` (required): the Claude Code plugin id, which is also the marketplace id.
+- `pkg` (optional): the npm package name. With it, the `AGENTS.md` card points at
+  `node_modules/<pkg>/AGENTS.md`. Without it, the card links to the repo's copy.
+- `agentsPath` (optional): where the rules file lives in `repo`. Defaults to `AGENTS.md`.
+- `skill` / `name` (optional): the skill directory under `skills/` and the display
+  name in the intro line. Both default to `plugin`.
+- `blurb` (optional): replaces the intro line.
+
 ## Adding / editing a sibling
 
 Edit `src/family.ts` and commit. `dist/` is build output and isn't tracked —
