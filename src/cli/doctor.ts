@@ -86,6 +86,19 @@ export async function doctor(
 		'config uses copyright() or footerCopyright()',
 		`${cfg} hardcodes its copyright line`
 	)
+	// Warn, not fail: sites scaffolded before init wired it in are valid, just missing the torcato.dev links.
+	if (await exists(at(cfg))) {
+		const has = (await read(at(cfg))).includes("'@rtorcato/shared-docs/docusaurus'")
+		out.push(
+			has
+				? { check: 'config adds the shared-docs docusaurus plugin', status: 'ok' }
+				: {
+						check: 'config adds the shared-docs docusaurus plugin',
+						status: 'warn',
+						detail: `${cfg} lacks '@rtorcato/shared-docs/docusaurus' in plugins (the torcato.dev breadcrumb) — see the README`,
+					}
+		)
+	}
 	await contains(
 		`${DOCS_APP}/src/css/custom.css`,
 		/@import\s+["']\.\/_jt-tokens\.css["'][\s\S]*@import\s+["']\.\/theme\.css["']/,

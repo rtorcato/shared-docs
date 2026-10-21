@@ -142,7 +142,7 @@ function docusaurusConfig(
 		: ''
 	return `import type * as Preset from '@docusaurus/preset-classic'
 import type { Config } from '@docusaurus/types'
-import { GITHUB_PROFILE, copyright, projectFamilyItems } from '@rtorcato/shared-docs'
+import { GITHUB_PROFILE, footerCopyright, projectFamilyItems } from '@rtorcato/shared-docs'
 import { themes as prismThemes } from 'prism-react-renderer'
 ${typedocImport}
 const config: Config = {
@@ -188,7 +188,8 @@ const config: Config = {
 \t],
 
 \tplugins: [
-${typedocPlugins}\t\t[
+${typedocPlugins}\t\t'@rtorcato/shared-docs/docusaurus',
+\t\t[
 \t\t\t'@easyops-cn/docusaurus-search-local',
 \t\t\t{
 \t\t\t\thashed: true,
@@ -234,7 +235,7 @@ ${hasLogo ? `\t\t\tlogo: { alt: ${jsString(meta.title)}, src: 'img/favicon.svg' 
 \t\t\t\t},
 \t\t\t\t{ title: 'Projects', items: projectFamilyItems() },
 \t\t\t],
-\t\t\tcopyright: copyright(),
+\t\t\tcopyright: footerCopyright(),
 \t\t},
 \t\t// \`theme\` is the LIGHT-mode Prism theme and \`darkTheme\` the dark one; the
 \t\t// shared stylesheet assumes this pairing.

@@ -62,6 +62,10 @@ Every family site links back to [torcato.dev](https://torcato.dev). Docusaurus h
 no config slot before the logo, so a small theme plugin does it; a site adds one
 line and swizzles nothing.
 
+`shared-docs init` scaffolds both the plugin and `footerCopyright()` for new sites. `doctor`
+warns on an older site that lacks the plugin; add the lines below by hand, since `init` never
+rewrites an existing `docusaurus.config.ts`.
+
 ```ts
 // docusaurus.config.ts
 import { footerCopyright } from '@rtorcato/shared-docs'

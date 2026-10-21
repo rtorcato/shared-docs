@@ -24,17 +24,20 @@ test('init scaffolds a site wired to shared-docs, and is idempotent', () => {
 	assert.ok(first.written.includes('apps/docs/docusaurus.config.ts'))
 	const config = readFileSync(join(dir, 'apps/docs/docusaurus.config.ts'), 'utf8')
 	assert.match(config, /projectFamilyItems/)
-	assert.match(config, /copyright\(\)/)
+	assert.match(config, /copyright: footerCopyright\(\)/)
+	assert.match(config, /'@rtorcato\/shared-docs\/docusaurus',/)
 	assert.deepEqual(JSON.parse(run(dir, 'init', '--json').stdout).written, [])
 })
 
-test('doctor accepts footerCopyright() in place of copyright()', () => {
+test('doctor still accepts plain copyright() and warns when the plugin is missing', () => {
 	const dir = repo()
 	run(dir, 'init')
 	const cfgPath = join(dir, 'apps/docs/docusaurus.config.ts')
 	writeFileSync(
 		cfgPath,
-		readFileSync(cfgPath, 'utf8').replace(/copyright\(\)/, 'footerCopyright()')
+		readFileSync(cfgPath, 'utf8')
+			.replaceAll('footerCopyright', 'copyright')
+			.replace("\t\t'@rtorcato/shared-docs/docusaurus',\n", '')
 	)
 	const r = run(dir, 'doctor', '--json')
 	assert.equal(r.status, 0)
@@ -42,6 +45,10 @@ test('doctor accepts footerCopyright() in place of copyright()', () => {
 		(c) => c.check === 'config uses copyright() or footerCopyright()'
 	)
 	assert.equal(check.status, 'ok')
+	const plugin = JSON.parse(r.stdout).checks.find(
+		(c) => c.check === 'config adds the shared-docs docusaurus plugin'
+	)
+	assert.equal(plugin.status, 'warn')
 })
 
 test('doctor passes after init and fails on drift; --json is parseable', () => {
