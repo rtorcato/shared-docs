@@ -329,7 +329,7 @@ article table td:nth-child(3) code {
 	border-color: var(--ifm-color-primary-light);
 	color: var(--jt-on-accent);
 }
-.button--secondary {
+.button.button--secondary {
 	background: transparent;
 	border-color: var(--jt-border2);
 	color: var(--jt-heading);
