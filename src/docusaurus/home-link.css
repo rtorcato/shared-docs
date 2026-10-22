@@ -19,7 +19,7 @@
 	margin: 0 10px 0 8px;
 	font-size: 18px;
 	font-weight: 300;
-	color: var(--jt-faint, light-dark(#8a95a5, #647184));
+	color: var(--jt-faint, light-dark(#5f6b7a, #768397));
 }
 .rt-home-crumb:focus-visible,
 .rt-home-footer a:focus-visible,

@@ -64,7 +64,7 @@
 	padding: 15px 14px 15px 16px;
 }
 /* AA muted grey (4.5:1+): 5.43 on #fff / 5.04 on #f2f8f5, 4.63 on #111824. Not
-   Infima's emphasis-500/600 or --jt-faint, which resolve to ~2.8-3.6 on a host. */
+   Infima's emphasis-500/600, which resolve to ~2.8-3.6 on a host. */
 .prompt {
 	color: light-dark(#5f6b7a, #768397);
 	font-family: var(--ifm-font-family-monospace, monospace);
