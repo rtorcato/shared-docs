@@ -1,18 +1,18 @@
 <!-- brand-kit:banner:start -->
 <picture>
   <source media="(max-width: 640px)" srcset="./brand/banner-mobile.png">
-  <img src="./brand/banner.png" alt="shared-docs banner" width="1600">
+  <img src="./brand/banner.png" alt="One sibling list for every docs site." width="1600">
 </picture>
 <!-- brand-kit:banner:end -->
 
 # @rtorcato/shared-docs
 
 Shared data and helpers for the `@rtorcato` docs sites — the framework-neutral
-sibling-project list and nav/footer builders, plus Docusaurus components.
+sibling list and nav/footer builders, plus Docusaurus components.
 
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/rtorcato)
 
-The single source of truth for the **sibling-project list** — the cross-links
+The single source of truth for the **sibling list** — the cross-links
 every `@rtorcato/*` docs site shows in its nav, footer, and landing grid. Edit
 the list once here; each site picks it up on its next build.
 
