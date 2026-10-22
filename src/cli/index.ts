@@ -6,19 +6,19 @@ import { doctor } from './doctor.js'
 import { generateDocsSite } from './docs-site.js'
 import { exists } from './fs.js'
 
-const HELP = `shared-docs — scaffold the @rtorcato family docs site
+const HELP = `shared-docs — scaffold the @rtorcato docs site
 
 Usage: shared-docs <command> [options]
 
 Commands:
-  init     Scaffold apps/docs (theme, Projects dropdown, family footer, landing page, mobile drawer)
+  init     Scaffold apps/docs (theme, Projects dropdown, footer, landing page, mobile drawer)
   brand    Deprecated — brand assets moved to \`npx @rtorcato/brand-kit\`
   doctor   Report drift from the scaffold (exit 1 on failures)
 
 Options:
   --dir <path>          Target repo (default: cwd)
-  --tagline <text>      Site tagline (default: family entry, else package.json description)
-  --accent <hex>        Accent colour, light mode (default: family entry, else Docusaurus green)
+  --tagline <text>      Site tagline (default: sibling-list entry, else package.json description)
+  --accent <hex>        Accent colour, light mode (default: sibling-list entry, else Docusaurus green)
   --accent-dark <hex>   Accent colour, dark mode (default: --accent)
   --typedoc             init: wire TypeDoc API pages for single-segment subpath exports
   --helpers             init: also write scripts/docs-helpers.mjs
