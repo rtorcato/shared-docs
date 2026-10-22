@@ -1,19 +1,19 @@
 ---
 name: shared-docs
-description: Use when wiring a docs site's navbar dropdown, footer, copyright line, or "Sibling projects" grid in a project that depends on @rtorcato/shared-docs, or when adding/editing a member of the @rtorcato family. Covers the FAMILY data, the nav/footer builders, the Docusaurus components and their subpath imports, and the two intentional footguns in siblings() and label().
+description: Use when wiring a docs site's navbar dropdown, footer, copyright line, or "Sibling projects" grid in a project that depends on @rtorcato/shared-docs, or when adding/editing a member of the @rtorcato sibling list. Covers the FAMILY data, the nav/footer builders, the Docusaurus components and their subpath imports, and the two intentional footguns in siblings() and label().
 ---
 
 # Using @rtorcato/shared-docs
 
 `@rtorcato/shared-docs` is the single source of truth for the `@rtorcato` open-source
-family — the list itself, plus framework-neutral nav/footer builders and four
+projects — the list itself, plus framework-neutral nav/footer builders and four
 Docusaurus React components. ESM-only, Node ≥22, React 18/19 as a peer dep.
 
 Install: `pnpm add -D @rtorcato/shared-docs`
 
 ## Rules
 
-1. **Never hard-code the family list in a consuming site.** Import `FAMILY`,
+1. **Never hard-code the sibling list in a consuming site.** Import `FAMILY`,
    `siblings()`, or `projectFamilyItems()` — a site that copies the array drifts the
    moment a package is added here.
 
@@ -43,8 +43,8 @@ Install: `pnpm add -D @rtorcato/shared-docs`
 
 | Export | Signature | Use |
 |---|---|---|
-| `FAMILY` | `FamilyMember[]` | the whole family, including the consuming site's own package |
-| `siblings` | `(selfName: string) => FamilyMember[]` | the family minus one package — the landing-page grid |
+| `FAMILY` | `FamilyMember[]` | the whole list, including the consuming site's own package |
+| `siblings` | `(selfName: string) => FamilyMember[]` | the list minus one package — the landing-page grid |
 | `projectFamilyItems` | `() => { label, href }[]` | nav-dropdown / footer link items |
 | `label` | `(m: FamilyMember) => string` | short label; strips `@rtorcato/` **and nothing else** |
 | `copyright` | `(builtWith?: string) => string` | footer line; defaults to `'Docusaurus'`, Fumadocs passes `copyright('Fumadocs')` |
@@ -103,7 +103,7 @@ import Siblings from '@rtorcato/shared-docs/components/Siblings'
 `InstallTabs` also exports a named `CopyIcon({ done })` — reuse it rather than
 adding a second copy icon.
 
-## Editing the family
+## Editing the list
 
 Edit `src/family.ts` only — it's the one source of truth.
 

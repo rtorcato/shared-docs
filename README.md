@@ -8,13 +8,13 @@
 # @rtorcato/shared-docs
 
 Shared data and helpers for the `@rtorcato` docs sites — the framework-neutral
-sibling-family list and nav/footer builders, plus Docusaurus components.
+sibling-project list and nav/footer builders, plus Docusaurus components.
 
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/rtorcato)
 
-The single source of truth for the **sibling-family list** — the cross-links
+The single source of truth for the **sibling-project list** — the cross-links
 every `@rtorcato/*` docs site shows in its nav, footer, and landing grid. Edit
-the family once here; each site picks it up on its next build.
+the list once here; each site picks it up on its next build.
 
 ## Install
 
@@ -58,7 +58,7 @@ const SIBLINGS = siblings('@rtorcato/cf-common')
 
 ## Back to torcato.dev
 
-Every family site links back to [torcato.dev](https://torcato.dev). Docusaurus has
+Every sibling site links back to [torcato.dev](https://torcato.dev). Docusaurus has
 no config slot before the logo, so a small theme plugin does it; a site adds one
 line and swizzles nothing.
 
@@ -89,9 +89,9 @@ overrides the plugin's.
 
 ## API
 
-- `FAMILY: FamilyMember[]` — the full family (all packages, including each site's own).
-- `siblings(selfName): FamilyMember[]` — the family minus one package, for a grid.
-- `projectFamilyItems(): { label, href }[]` — nav/footer link items for the whole family.
+- `FAMILY: FamilyMember[]` — the full list (all packages, including each site's own).
+- `siblings(selfName): FamilyMember[]` — the list minus one package, for a grid.
+- `projectFamilyItems(): { label, href }[]` — nav/footer link items for the whole list.
 - `label(member): string` — short label (package name without the `@rtorcato/` scope).
 - `copyright(builtWith?): string` — footer copyright line, stamped with the current
   year. Defaults to `'Docusaurus'`; a Fumadocs site passes `copyright('Fumadocs')`.
@@ -174,7 +174,7 @@ repo-tooling" in `CLAUDE.md` before adding CSS.
 runtime dependencies (node built-ins only) and never prompts.
 
 ```sh
-npx @rtorcato/shared-docs init      # apps/docs: theme, tokens, Projects dropdown, family footer,
+npx @rtorcato/shared-docs init      # apps/docs: theme, tokens, Projects dropdown, footer,
                                     # landing page with <Siblings>, mobile drawer, TS 7-ready tsconfig
 npx @rtorcato/shared-docs doctor    # report drift from the scaffold (exit 1 on failures)
 ```
