@@ -52,6 +52,8 @@
 .rt-home-footer a {
 	display: inline-flex;
 	align-items: center;
+	/* the coffee link's baseline is its SVG's bottom edge, so baseline alignment lifts it */
+	vertical-align: middle;
 	min-height: 44px;
 	font-size: 14px;
 	font-weight: 600;
@@ -62,6 +64,7 @@
 	text-decoration: none;
 }
 .rt-home-dot {
+	vertical-align: middle;
 	margin: 0 10px;
 	font-size: 14px;
 	font-weight: 300;
