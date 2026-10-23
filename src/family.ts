@@ -102,4 +102,12 @@ export const FAMILY: FamilyMember[] = [
 		dest: 'Docs',
 		accent: '#a3e635',
 	},
+	{
+		name: '@rtorcato/buzz-dashboard',
+		tagline:
+			'Read-only view of a Buzz agent hive: what is running and what needs you.',
+		href: 'https://docs.torcato.dev/buzz-dashboard/',
+		dest: 'Docs',
+		accent: '#e19b34',
+	},
 ]
