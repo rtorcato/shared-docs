@@ -83,3 +83,32 @@
 		margin: 0 8px 0 6px;
 	}
 }
+
+/* Below Docusaurus' 996px breakpoint the breadcrumb, the title, the toggle and the search share one row.
+   The breadcrumb stays (DESIGN.md C: always visible). The title gives way with an ellipsis instead of
+   running under the search button, and the toggle and search get a 44px hit area. The search is
+   absolutely positioned over the right edge (about 60px with its margin), so the left group stops short of it. */
+@media (max-width: 996px) {
+	.navbar__items.theme-layout-navbar-left {
+		margin-right: 68px;
+	}
+	.navbar__brand {
+		min-width: 0;
+	}
+	.navbar__title {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.navbar__toggle {
+		flex: none;
+		width: 44px;
+		height: 44px;
+		align-items: center;
+		justify-content: center;
+	}
+	.navbar__search-input {
+		min-width: 44px;
+		min-height: 44px;
+	}
+}
