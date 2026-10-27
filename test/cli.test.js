@@ -26,6 +26,9 @@ test('init scaffolds a site wired to shared-docs, and is idempotent', () => {
 	assert.match(config, /projectFamilyItems/)
 	assert.match(config, /copyright: footerCopyright\(\)/)
 	assert.match(config, /'@rtorcato\/shared-docs\/docusaurus',/)
+	// #180: without width the pillar grid sizes to one row and scrolls sideways on phones.
+	const homeCss = readFileSync(join(dir, 'apps/docs/src/pages/index.module.css'), 'utf8')
+	assert.match(homeCss, /\.pillars \{[^}]*width: 100%;/)
 	assert.deepEqual(JSON.parse(run(dir, 'init', '--json').stdout).written, [])
 })
 

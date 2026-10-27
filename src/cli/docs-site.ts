@@ -542,6 +542,10 @@ const HOME_CSS = `.hero {
 \tdisplay: grid;
 \tgap: 1rem;
 \tgrid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+\t/* Layout's main-wrapper is a flex column and margin: auto stops it
+\t   stretching this grid, so without width it grows to its one-row
+\t   max-content width and scrolls sideways on phones (#180). */
+\twidth: 100%;
 \tmax-width: 64rem;
 \tmargin: 0 auto;
 \tpadding: 1rem 1rem 4rem;
