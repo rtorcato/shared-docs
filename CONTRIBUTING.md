@@ -15,13 +15,13 @@ pnpm lint
 ## Workflow
 
 - One branch and one PR per issue, branched from `main`.
-- PR titles must be [Conventional Commits](https://www.conventionalcommits.org/). The
-  squash subject drives semantic-release: `feat:` cuts a minor, `fix:` a patch, and
-  `chore:`/`docs:`/`ci:` cut no release. A change consumers need to install must be
-  `feat:` or `fix:`.
-- Do not bump `version` in `package.json` or tag by hand; semantic-release does it.
-- Merging does not release. Closing a milestone or dispatching `release.yml`
-  publishes everything merged since the last tag in one batch.
+- PR titles must be [Conventional Commits](https://www.conventionalcommits.org/).
+- A change consumers need to install carries a changeset: run `pnpm changeset`, pick
+  the bump (patch/minor/major) and commit the file under `.changeset/`. `chore:`,
+  `docs:` and `ci:` PRs need none.
+- Do not bump `version` in `package.json` or tag by hand; the Version Packages PR does it.
+- Merging does not release. Each push to `main` opens or updates the Version Packages
+  PR; merging that PR is the release, after one approval in the `release` environment.
 - Run `pnpm build && pnpm test` before pushing.
 - Editing `src/family.ts`? Check that every new `href` resolves (`pnpm check:links`).
 

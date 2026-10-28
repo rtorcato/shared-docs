@@ -22,25 +22,24 @@ ESM-only TypeScript library, pnpm, Node ≥22. Install with
 
 ## Release
 
-**Batched — do not tag or bump `version` by hand.** Merging to `main` publishes
-nothing. `release.yml` runs only when a milestone is closed or someone dispatches it,
-then semantic-release releases everything merged since the last tag, deriving the
-version from the commit messages. Never close a milestone or dispatch it without
-rtorcato's go — either one publishes. The type prefix still decides whether
-consumers get the change:
+**Changesets, batched — do not tag or bump `version` by hand.** A PR that changes
+the published package adds a changeset (`pnpm changeset`). Each push to `main` opens
+or updates the "Version Packages" PR, which bumps `version` and writes `CHANGELOG.md`;
+merging it is the release. Its `publish` job in `.github/workflows/release.yml` waits
+for one approval in the `release` environment, because npm's trusted publisher is
+pinned to `release.yml` + `release`: rename either and publishing fails with
+`404 package not found`. A dispatch of `release.yml` retries a failed publish. Merging
+a feature PR publishes nothing, and neither does closing a milestone any more. The
+commit type no longer decides the release; the changeset does, so a change consumers
+need to install must carry one.
 
-- `feat:` → minor, `fix:` → patch, `chore:`/`docs:`/`ci:` → **no release at all**
-
-A change that consumers need to install must therefore land as `feat:` or `fix:`.
-
-**`version` in `package.json` is stale on purpose and always will be.** #24 dropped
-`@semantic-release/git`, so nothing commits the bump back to `main` — semantic-release
-sets the version in the published tarball at publish time. The git tag and the npm
-registry are the record; `package.json` on `main` is not. Don't "fix" it.
+`pnpm-workspace.yaml` lists `.` so Changesets sees the root package; drop it and every
+changeset fails with "not in the workspace". `version` in `package.json` is now real
+and moves only with the Version Packages PR. To check:
 
 ```sh
 npm view @rtorcato/shared-docs version   # the real answer
-git tag --sort=-v:refname | head -1      # should agree
+git tag --list '@rtorcato/shared-docs@*' --sort=-v:refname | head -1   # should agree (older tags are vX.Y.Z)
 ```
 
 If those two ever disagree, a release failed silently — that has happened before.
