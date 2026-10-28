@@ -1,5 +1,8 @@
 # docs/site/ is the docs.torcato.dev index page, deployed on its own (private).
 packages:
+  # The root is the published package. Unlisted, Changesets cannot see it and
+  # rejects every changeset as "not in the workspace".
+  - '.'
   - docs/site
 
 # Family packages skip the minimum-release-age gate — they're ours, so a fresh

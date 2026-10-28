@@ -149,18 +149,13 @@ import UseWithAI from '@rtorcato/shared-docs/components/UseWithAI'
 Edit `src/family.ts` and commit. `dist/` is build output and isn't tracked —
 `prepack` builds it at publish time.
 
-Don't bump `version` or tag by hand — semantic-release does that from the commit
-messages. Use `feat:` or `fix:`; a `chore:` or `docs:` commit publishes nothing, so
-the change never reaches consumers. Sites then pick it up via
-`pnpm update @rtorcato/shared-docs`.
+Don't bump `version` or tag by hand. Add a changeset (`pnpm changeset`) to any change
+consumers need; a `chore:` or `docs:` change without one publishes nothing, so it never
+reaches consumers. Sites then pick it up via `pnpm update @rtorcato/shared-docs`.
 
-**Merging to `main` does not release.** Releases are batched: closing a milestone, or
-dispatching `release.yml` by hand, publishes everything merged since the last tag in
-one release.
-
-> The `version` field in `package.json` is **deliberately stale** — nothing commits
-> the bump back to `main`. `npm view @rtorcato/shared-docs version` and the newest
-> git tag are the real answer.
+**Merging to `main` does not release.** Each push opens or updates a "Version
+Packages" PR; merging it publishes the release, after one approval in the `release`
+environment.
 
 ## Colour and theming
 

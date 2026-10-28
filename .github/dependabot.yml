@@ -14,9 +14,9 @@ updates:
     open-pull-requests-limit: 5
     versioning-strategy: increase
     commit-message:
-      # `chore:` publishes nothing (semantic-release only releases feat/fix),
-      # which is right for a devDep bump — but a security fix that needs to
-      # reach consumers must be relabelled `fix:` by hand before merging.
+      # A bump without a changeset publishes nothing, which is right for a
+      # devDep bump — but a security fix that needs to reach consumers must
+      # get a changeset by hand before merging.
       prefix: chore
       include: scope
     # Groups match the repo-tooling preset. The dependabot-automerge workflow

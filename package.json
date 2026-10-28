@@ -1,6 +1,6 @@
 {
 	"name": "@rtorcato/shared-docs",
-	"version": "1.2.0",
+	"version": "1.19.0",
 	"description": "Shared data and helpers for the @rtorcato docs sites — the framework-neutral sibling list and nav/footer builders, plus Docusaurus components.",
 	"type": "module",
 	"packageManager": "pnpm@11.9.0",
@@ -69,7 +69,8 @@
 		"check:links": "node scripts/check-family-links.mjs",
 		"publint": "publint --strict",
 		"attw": "attw --pack --profile esm-only",
-		"size": "size-limit"
+		"size": "size-limit",
+		"changeset": "changeset"
 	},
 	"peerDependencies": {
 		"react": "^18.0.0 || ^19.0.0",
@@ -86,14 +87,13 @@
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.5",
 		"@biomejs/biome": "^2.5.7",
+		"@changesets/cli": "^3.0.3",
 		"@rtorcato/repo-tooling": "^6.1.0",
 		"@size-limit/preset-small-lib": "^14.1.0",
 		"@types/node": "^26.6.4",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
-		"conventional-changelog-conventionalcommits": "^9.3.1",
 		"publint": "^0.3.25",
-		"semantic-release": "^25.0.8",
 		"size-limit": "^14.1.0",
 		"typescript": "^7.0.2"
 	},

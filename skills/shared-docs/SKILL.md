@@ -112,8 +112,7 @@ Edit `src/family.ts` only — it's the one source of truth.
    resolves** — four entries have silently drifted to dead links before.
 2. `pnpm build`, then commit `src/` and `dist/` **together**. `dist/` is committed
    on purpose for the remaining git-dep consumers; CI fails if it's stale.
-3. Commit as `feat:` or `fix:`. semantic-release derives the version from the
-   message, so a `chore:`/`docs:` commit publishes **nothing** and the change never
-   reaches any site.
+3. Add a changeset (`pnpm changeset`). Changesets derives the version from it, so a
+   change without one publishes **nothing** and never reaches any site.
 
 Sites pick it up with `pnpm update @rtorcato/shared-docs`.
