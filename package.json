@@ -86,15 +86,15 @@
 	},
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.5",
-		"@biomejs/biome": "^2.5.7",
+		"@biomejs/biome": "^2.6.2",
 		"@changesets/cli": "^3.0.3",
-		"@rtorcato/repo-tooling": "^6.1.0",
-		"@size-limit/preset-small-lib": "^14.1.0",
-		"@types/node": "^26.6.4",
+		"@rtorcato/repo-tooling": "^6.1.1",
+		"@size-limit/preset-small-lib": "^14.2.0",
+		"@types/node": "^26.6.5",
 		"@types/react": "^19.0.0",
 		"@types/react-dom": "^19.0.0",
 		"publint": "^0.3.25",
-		"size-limit": "^14.1.0",
+		"size-limit": "^14.2.0",
 		"typescript": "^7.0.2"
 	},
 	"publishConfig": {
