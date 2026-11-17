@@ -110,4 +110,11 @@ export const FAMILY: FamilyMember[] = [
 		dest: 'Docs',
 		accent: '#e19b34',
 	},
+	{
+		name: '@rtorcato/pentest',
+		tagline: 'Docker-based security sweep with a ranked Markdown report.',
+		href: 'https://github.com/rtorcato/pentest',
+		dest: 'GitHub',
+		accent: '#f87171',
+	},
 ]
