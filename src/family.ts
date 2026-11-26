@@ -5,7 +5,7 @@
 // (Docusaurus, Fumadocs, …). Edit the family in ONE place: here.
 
 export type FamilyMember = {
-	/** npm package name, e.g. "@rtorcato/api-common" */
+	/** npm package name, e.g. "@rtorcato/api-common"; plain repo name (e.g. "video-ai") when not published to npm */
 	name: string
 	tagline: string
 	/** Prefer the published docs site; fall back to the GitHub repo when there isn't one yet. */
@@ -116,5 +116,13 @@ export const FAMILY: FamilyMember[] = [
 		href: 'https://github.com/rtorcato/pentest',
 		dest: 'GitHub',
 		accent: '#f87171',
+	},
+	{
+		name: 'video-ai',
+		tagline:
+			'Agent skills for explainer videos: HTML scenes, ffmpeg, and editable DaVinci Resolve timelines.',
+		href: 'https://github.com/rtorcato/video-ai',
+		dest: 'GitHub',
+		accent: '#818cf8',
 	},
 ]
